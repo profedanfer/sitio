@@ -1,0 +1,962 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>ICIENTEC 2do — Ideas de Investigación</title>
+<link href="https://fonts.googleapis.com/css2?family=Space+Mono:wght@400;700&family=DM+Sans:wght@300;400;500;600&display=swap" rel="stylesheet">
+<style>
+  :root {
+    --bg: #fdf0e0;
+    --surface: #fff8f0;
+    --surface2: #feecd4;
+    --border: #e8c99a;
+    --border2: #c47a30;
+    --text: #6b2a00;
+    --muted: #a05020;
+    --accent-py: #7a3000;
+    --accent-hw: #c45010;
+    --accent-sw: #8a3a00;
+    --accent-alg: #b04000;
+    --accent-lab: #9a4510;
+    --accent-bio: #7a3510;
+    --tag-py-bg: #fde0c0;
+    --tag-hw-bg: #fcd8b0;
+    --tag-sw-bg: #fde4c8;
+    --tag-alg-bg: #fcdab8;
+    --tag-lab-bg: #fdd8b8;
+    --card-hover: #fde8c8;
+  }
+  * { box-sizing: border-box; margin: 0; padding: 0; }
+  body {
+    background: var(--bg);
+    color: var(--text);
+    font-family: 'DM Sans', sans-serif;
+    font-size: 15px;
+    line-height: 1.6;
+    min-height: 100vh;
+  }
+
+  /* GRID FONDO */
+  body::before {
+    content: '';
+    position: fixed;
+    inset: 0;
+    background-image:
+      linear-gradient(var(--border) 1px, transparent 1px),
+      linear-gradient(90deg, var(--border) 1px, transparent 1px);
+    background-size: 40px 40px;
+    opacity: 0.3;
+    pointer-events: none;
+    z-index: 0;
+  }
+
+  .wrapper { position: relative; z-index: 1; max-width: 1100px; margin: 0 auto; padding: 0 1.5rem 4rem; }
+
+  /* HEADER */
+  header {
+    padding: 3rem 0 2rem;
+    border-bottom: 1px solid var(--border);
+    margin-bottom: 2.5rem;
+  }
+  .header-tag {
+    font-family: 'Space Mono', monospace;
+    font-size: 11px;
+    color: #c45010;
+    letter-spacing: 0.15em;
+    text-transform: uppercase;
+    margin-bottom: 0.75rem;
+    display: flex;
+    align-items: center;
+    gap: 8px;
+  }
+  .header-tag::before {
+    content: '';
+    display: inline-block;
+    width: 20px;
+    height: 1px;
+    background: #c45010;
+  }
+  h1 {
+    font-family: 'Space Mono', monospace;
+    font-size: clamp(1.8rem, 4vw, 2.8rem);
+    font-weight: 700;
+    line-height: 1.15;
+    color: var(--text);
+    margin-bottom: 1rem;
+  }
+  h1 span { color: #c45010; }
+  .header-desc {
+    color: var(--muted);
+    max-width: 620px;
+    font-size: 15px;
+    line-height: 1.7;
+  }
+  .header-desc strong { color: var(--text); font-weight: 500; }
+
+  /* FILTROS */
+  .filtros {
+    display: flex;
+    flex-wrap: wrap;
+    gap: 8px;
+    margin-bottom: 2rem;
+    align-items: center;
+  }
+  .filtros-label {
+    font-family: 'Space Mono', monospace;
+    font-size: 11px;
+    color: var(--muted);
+    text-transform: uppercase;
+    letter-spacing: 0.1em;
+    margin-right: 4px;
+  }
+  .filtro-btn {
+    font-family: 'DM Sans', sans-serif;
+    font-size: 12px;
+    font-weight: 500;
+    padding: 5px 14px;
+    border-radius: 20px;
+    border: 1px solid var(--border2);
+    background: var(--surface);
+    color: var(--muted);
+    cursor: pointer;
+    transition: all 0.15s;
+    letter-spacing: 0.02em;
+  }
+  .filtro-btn:hover { border-color: var(--accent-py); color: var(--text); }
+  .filtro-btn.activo { background: var(--accent-py); border-color: var(--accent-py); color: #fff; font-weight: 700; }
+  .filtro-btn[data-mat="hw"].activo { background: var(--accent-hw); border-color: var(--accent-hw); }
+  .filtro-btn[data-mat="sw"].activo { background: var(--accent-sw); border-color: var(--accent-sw); color: #fff; }
+  .filtro-btn[data-mat="alg"].activo { background: var(--accent-alg); border-color: var(--accent-alg); }
+  .filtro-btn[data-mat="lab"].activo { background: var(--accent-lab); border-color: var(--accent-lab); }
+
+  /* METODOLOGÍA */
+  .metodo-strip {
+    background: var(--surface);
+    border: 1px solid var(--border);
+    border-left: 3px solid #c45010;
+    border-radius: 8px;
+    padding: 1rem 1.25rem;
+    margin-bottom: 2.5rem;
+    display: flex;
+    gap: 1rem;
+    flex-wrap: wrap;
+  }
+  .metodo-step {
+    display: flex;
+    align-items: center;
+    gap: 8px;
+    font-size: 13px;
+    color: var(--muted);
+  }
+  .metodo-step .num {
+    font-family: 'Space Mono', monospace;
+    font-size: 11px;
+    color: #fff;
+    background: var(--accent-py);
+    width: 22px;
+    height: 22px;
+    border-radius: 50%;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    flex-shrink: 0;
+  }
+  .metodo-sep { color: var(--border2); font-size: 18px; align-self: center; }
+
+  /* GRID DE TARJETAS */
+  .cards-grid {
+    display: grid;
+    grid-template-columns: repeat(auto-fill, minmax(300px, 1fr));
+    gap: 1.25rem;
+  }
+
+  /* TARJETA */
+  .card {
+    background: var(--surface);
+    border: 1px solid var(--border);
+    border-radius: 12px;
+    padding: 1.25rem;
+    cursor: pointer;
+    transition: all 0.2s;
+    display: flex;
+    flex-direction: column;
+    gap: 0.75rem;
+    position: relative;
+    overflow: hidden;
+  }
+  .card::before {
+    content: '';
+    position: absolute;
+    top: 0; left: 0; right: 0;
+    height: 2px;
+    opacity: 0;
+    transition: opacity 0.2s;
+  }
+  .card[data-mat*="py"]::before { background: var(--accent-py); }
+  .card[data-mat*="hw"]::before { background: var(--accent-hw); }
+  .card[data-mat*="sw"]::before { background: var(--accent-sw); }
+  .card[data-mat*="alg"]::before { background: var(--accent-alg); }
+  .card[data-mat*="lab"]::before { background: var(--accent-lab); }
+  .card:hover { background: var(--card-hover); border-color: var(--border2); transform: translateY(-2px); }
+  .card:hover::before { opacity: 1; }
+  .card.oculta { display: none; }
+
+  .card-icon { font-size: 1.6rem; line-height: 1; }
+  .card-titulo {
+    font-size: 15px;
+    font-weight: 600;
+    color: var(--text);
+    line-height: 1.4;
+  }
+  .card-pregunta {
+    font-size: 13px;
+    color: var(--muted);
+    font-style: italic;
+    line-height: 1.55;
+    border-left: 2px solid var(--border2);
+    padding-left: 10px;
+  }
+  .card-tags {
+    display: flex;
+    flex-wrap: wrap;
+    gap: 6px;
+    margin-top: auto;
+    padding-top: 0.5rem;
+    border-top: 1px solid var(--border);
+  }
+  .tag {
+    font-family: 'Space Mono', monospace;
+    font-size: 10px;
+    font-weight: 700;
+    padding: 3px 8px;
+    border-radius: 4px;
+    text-transform: uppercase;
+    letter-spacing: 0.05em;
+  }
+  .tag-py { background: var(--tag-py-bg); color: #7a3000; }
+  .tag-hw { background: var(--tag-hw-bg); color: #c45010; }
+  .tag-sw { background: var(--tag-sw-bg); color: #8a3a00; }
+  .tag-alg { background: var(--tag-alg-bg); color: #b04000; }
+  .tag-lab { background: var(--tag-lab-bg); color: #9a4510; }
+  .tag-inv { background: #fde8d0; color: #a05020; border: 1px solid var(--border2); }
+
+  /* MODAL */
+  .modal-overlay {
+    position: fixed;
+    inset: 0;
+    background: rgba(5, 7, 12, 0.85);
+    z-index: 100;
+    display: none;
+    align-items: center;
+    justify-content: center;
+    padding: 1rem;
+    backdrop-filter: blur(4px);
+  }
+  .modal-overlay.visible { display: flex; }
+  .modal {
+    background: var(--surface2);
+    border: 1px solid var(--border2);
+    border-radius: 16px;
+    max-width: 560px;
+    width: 100%;
+    max-height: 85vh;
+    overflow-y: auto;
+    padding: 1.75rem;
+    position: relative;
+  }
+  .modal-close {
+    position: absolute;
+    top: 1rem;
+    right: 1rem;
+    background: var(--surface);
+    border: 1px solid var(--border);
+    color: var(--muted);
+    width: 32px;
+    height: 32px;
+    border-radius: 50%;
+    cursor: pointer;
+    font-size: 16px;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    transition: all 0.15s;
+  }
+  .modal-close:hover { color: var(--text); border-color: var(--border2); background: var(--card-hover); }
+  .modal-icon { font-size: 2rem; margin-bottom: 0.75rem; }
+  .modal-titulo {
+    font-family: 'Space Mono', monospace;
+    font-size: 1.15rem;
+    font-weight: 700;
+    color: var(--text);
+    margin-bottom: 0.5rem;
+  }
+  .modal-pregunta {
+    color: #c45010;
+    font-style: italic;
+    font-size: 14px;
+    margin-bottom: 1.25rem;
+    line-height: 1.55;
+  }
+  .modal-section { margin-bottom: 1.25rem; }
+  .modal-section-title {
+    font-family: 'Space Mono', monospace;
+    font-size: 10px;
+    text-transform: uppercase;
+    letter-spacing: 0.12em;
+    color: var(--muted);
+    margin-bottom: 0.5rem;
+  }
+  .modal-section ul { padding-left: 1.2rem; }
+  .modal-section li {
+    font-size: 13px;
+    color: var(--muted);
+    margin-bottom: 4px;
+    line-height: 1.55;
+  }
+  .modal-section li strong { color: var(--text); font-weight: 500; }
+  .modal-conexion {
+    background: var(--surface);
+    border: 1px solid var(--border);
+    border-radius: 8px;
+    padding: 0.75rem 1rem;
+    font-size: 13px;
+    color: var(--muted);
+    line-height: 1.6;
+  }
+  .modal-conexion strong { color: #c45010; font-weight: 500; }
+  .modal-tags { display: flex; flex-wrap: wrap; gap: 6px; margin-top: 1rem; }
+
+  /* FOOTER */
+  footer {
+    border-top: 1px solid var(--border);
+    margin-top: 3rem;
+    padding-top: 1.5rem;
+    text-align: center;
+    font-family: 'Space Mono', monospace;
+    font-size: 11px;
+    color: var(--muted);
+    letter-spacing: 0.05em;
+  }
+  footer span { color: #c45010; }
+
+  /* CONTADOR */
+  .contador {
+    font-family: 'Space Mono', monospace;
+    font-size: 12px;
+    color: var(--muted);
+    margin-bottom: 1rem;
+  }
+  .contador strong { color: var(--text); }
+
+  @media (max-width: 600px) {
+    .cards-grid { grid-template-columns: 1fr; }
+    .metodo-strip { flex-direction: column; }
+    .metodo-sep { display: none; }
+  }
+</style>
+</head>
+<body>
+<div class="wrapper">
+
+  <header>
+    <div class="header-tag">CED Miguela Rodríguez · 2do BATIN · 2026</div>
+    <h1>¿Qué vas a <span>investigar</span>?</h1>
+    <p class="header-desc">
+      El ICIENTEC no es un trabajo de carpeta. Es <strong>ciencia real</strong>: encontrás un problema en tu mundo, lo estudiás con método, analizás datos y proponés una solución que sirva de verdad. Elegí una idea, hacela tuya.
+    </p>
+  </header>
+
+  <div class="metodo-strip">
+    <div class="metodo-step"><div class="num">1</div> Observás un problema real</div>
+    <div class="metodo-sep">→</div>
+    <div class="metodo-step"><div class="num">2</div> Formulás una pregunta investigable</div>
+    <div class="metodo-sep">→</div>
+    <div class="metodo-step"><div class="num">3</div> Recolectás y analizás datos</div>
+    <div class="metodo-sep">→</div>
+    <div class="metodo-step"><div class="num">4</div> Proponés una solución concreta</div>
+    <div class="metodo-sep">→</div>
+    <div class="metodo-step"><div class="num">5</div> Presentás en la feria</div>
+  </div>
+
+  <div class="filtros">
+    <span class="filtros-label">Filtrar por:</span>
+    <button class="filtro-btn activo" data-mat="todos" onclick="filtrar('todos')">Todos</button>
+    <button class="filtro-btn" data-mat="py" onclick="filtrar('py')">Python</button>
+    <button class="filtro-btn" data-mat="hw" onclick="filtrar('hw')">Hardware</button>
+    <button class="filtro-btn" data-mat="sw" onclick="filtrar('sw')">Software</button>
+    <button class="filtro-btn" data-mat="alg" onclick="filtrar('alg')">Algorítmica</button>
+    <button class="filtro-btn" data-mat="lab" onclick="filtrar('lab')">Laboratorio</button>
+  </div>
+
+  <div class="contador"><strong id="num-visible">18</strong> ideas disponibles</div>
+
+  <div class="cards-grid" id="grid">
+
+    <!-- TARJETA 1 -->
+    <div class="card" data-mat="hw alg" onclick="abrirModal(0)">
+      <div class="card-icon">🖥️</div>
+      <div class="card-titulo">¿Cuánto dura realmente una PC de escuela?</div>
+      <div class="card-pregunta">¿Existe relación entre la antigüedad del hardware y la frecuencia de fallas reportadas en el colegio?</div>
+      <div class="card-tags">
+        <span class="tag tag-hw">Hardware</span>
+        <span class="tag tag-alg">Algorítmica</span>
+        <span class="tag tag-inv">Encuesta</span>
+      </div>
+    </div>
+
+    <!-- TARJETA 2 -->
+    <div class="card" data-mat="py lab" onclick="abrirModal(1)">
+      <div class="card-icon">📱</div>
+      <div class="card-titulo">Celular como herramienta de aprendizaje</div>
+      <div class="card-pregunta">¿Los estudiantes del CED usan el celular más para estudiar o para distraerse durante las clases?</div>
+      <div class="card-tags">
+        <span class="tag tag-py">Python</span>
+        <span class="tag tag-lab">Lab</span>
+        <span class="tag tag-inv">Encuesta</span>
+      </div>
+    </div>
+
+    <!-- TARJETA 3 -->
+    <div class="card" data-mat="sw py" onclick="abrirModal(2)">
+      <div class="card-icon">🔓</div>
+      <div class="card-titulo">Software pirata en las casas</div>
+      <div class="card-pregunta">¿Qué porcentaje de hogares del barrio usa software sin licencia y por qué razones?</div>
+      <div class="card-tags">
+        <span class="tag tag-sw">Software</span>
+        <span class="tag tag-py">Python</span>
+        <span class="tag tag-inv">Encuesta</span>
+      </div>
+    </div>
+
+    <!-- TARJETA 4 -->
+    <div class="card" data-mat="hw py" onclick="abrirModal(3)">
+      <div class="card-icon">♻️</div>
+      <div class="card-titulo">Basura electrónica en el barrio</div>
+      <div class="card-pregunta">¿Cómo desechan equipos informáticos viejos los hogares del barrio y qué riesgos implica?</div>
+      <div class="card-tags">
+        <span class="tag tag-hw">Hardware</span>
+        <span class="tag tag-py">Python</span>
+        <span class="tag tag-inv">Observación</span>
+      </div>
+    </div>
+
+    <!-- TARJETA 5 -->
+    <div class="card" data-mat="alg py" onclick="abrirModal(4)">
+      <div class="card-icon">🧮</div>
+      <div class="card-titulo">¿Algorítmica o Matemática? El puente que falta</div>
+      <div class="card-pregunta">¿Los estudiantes que resuelven mejor problemas matemáticos también programan con menos errores lógicos?</div>
+      <div class="card-tags">
+        <span class="tag tag-alg">Algorítmica</span>
+        <span class="tag tag-py">Python</span>
+        <span class="tag tag-inv">Datos reales</span>
+      </div>
+    </div>
+
+    <!-- TARJETA 6 -->
+    <div class="card" data-mat="sw py" onclick="abrirModal(5)">
+      <div class="card-icon">🧠</div>
+      <div class="card-titulo">Inteligencia artificial: ¿miedo o herramienta?</div>
+      <div class="card-pregunta">¿Qué percepción tienen los docentes del CED sobre el uso de IA en el aula y cómo difiere de la de los estudiantes?</div>
+      <div class="card-tags">
+        <span class="tag tag-sw">Software</span>
+        <span class="tag tag-py">Python</span>
+        <span class="tag tag-inv">Encuesta</span>
+      </div>
+    </div>
+
+    <!-- TARJETA 7 -->
+    <div class="card" data-mat="hw lab" onclick="abrirModal(6)">
+      <div class="card-icon">🔧</div>
+      <div class="card-titulo">Mantenimiento cero: consecuencias reales</div>
+      <div class="card-pregunta">¿Qué diferencia hay en el rendimiento de PCs con y sin mantenimiento preventivo en instituciones educativas?</div>
+      <div class="card-tags">
+        <span class="tag tag-hw">Hardware</span>
+        <span class="tag tag-lab">Lab</span>
+        <span class="tag tag-inv">Experimento</span>
+      </div>
+    </div>
+
+    <!-- TARJETA 8 -->
+    <div class="card" data-mat="py alg" onclick="abrirModal(7)">
+      <div class="card-icon">📊</div>
+      <div class="card-titulo">El primer error de programación</div>
+      <div class="card-pregunta">¿Cuáles son los errores más frecuentes que cometen los estudiantes de 2do BATIN al programar en Python y en qué momento del aprendizaje ocurren?</div>
+      <div class="card-tags">
+        <span class="tag tag-py">Python</span>
+        <span class="tag tag-alg">Algorítmica</span>
+        <span class="tag tag-inv">Datos reales</span>
+      </div>
+    </div>
+
+    <!-- TARJETA 9 -->
+    <div class="card" data-mat="sw hw" onclick="abrirModal(8)">
+      <div class="card-icon">🌐</div>
+      <div class="card-titulo">Conectividad real en el aula</div>
+      <div class="card-pregunta">¿Cuál es la velocidad real de internet disponible en el CED y cómo afecta las actividades de aprendizaje digital?</div>
+      <div class="card-tags">
+        <span class="tag tag-sw">Software</span>
+        <span class="tag tag-hw">Hardware</span>
+        <span class="tag tag-inv">Medición</span>
+      </div>
+    </div>
+
+    <!-- TARJETA 10 -->
+    <div class="card" data-mat="py lab" onclick="abrirModal(9)">
+      <div class="card-icon">💤</div>
+      <div class="card-titulo">¿Cuánto duermen los estudiantes técnicos?</div>
+      <div class="card-pregunta">¿Existe relación entre las horas de sueño y el rendimiento en materias técnicas como Laboratorio y Algorítmica?</div>
+      <div class="card-tags">
+        <span class="tag tag-py">Python</span>
+        <span class="tag tag-lab">Lab</span>
+        <span class="tag tag-inv">Encuesta</span>
+      </div>
+    </div>
+
+    <!-- TARJETA 11 -->
+    <div class="card" data-mat="sw alg" onclick="abrirModal(10)">
+      <div class="card-icon">🔐</div>
+      <div class="card-titulo">Contraseñas inseguras: el eslabón débil</div>
+      <div class="card-pregunta">¿Qué tan seguras son las contraseñas que usan los estudiantes del CED y cuántos conocen las buenas prácticas?</div>
+      <div class="card-tags">
+        <span class="tag tag-sw">Software</span>
+        <span class="tag tag-alg">Algorítmica</span>
+        <span class="tag tag-inv">Encuesta</span>
+      </div>
+    </div>
+
+    <!-- TARJETA 12 -->
+    <div class="card" data-mat="hw py" onclick="abrirModal(11)">
+      <div class="card-icon">🌡️</div>
+      <div class="card-titulo">Calor y rendimiento de equipos</div>
+      <div class="card-pregunta">¿Cómo influye la temperatura ambiente del aula en el rendimiento y la estabilidad de las computadoras del laboratorio?</div>
+      <div class="card-tags">
+        <span class="tag tag-hw">Hardware</span>
+        <span class="tag tag-py">Python</span>
+        <span class="tag tag-inv">Experimento</span>
+      </div>
+    </div>
+
+    <!-- TARJETA 13 -->
+    <div class="card" data-mat="py sw" onclick="abrirModal(12)">
+      <div class="card-icon">🎮</div>
+      <div class="card-titulo">Videojuegos y aprendizaje: ¿enemigos o aliados?</div>
+      <div class="card-pregunta">¿Los estudiantes que juegan videojuegos estratégicos desarrollan mejor pensamiento lógico que los que no juegan?</div>
+      <div class="card-tags">
+        <span class="tag tag-py">Python</span>
+        <span class="tag tag-sw">Software</span>
+        <span class="tag tag-inv">Encuesta + test</span>
+      </div>
+    </div>
+
+    <!-- TARJETA 14 -->
+    <div class="card" data-mat="hw sw" onclick="abrirModal(13)">
+      <div class="card-icon">🏫</div>
+      <div class="card-titulo">Ciclo de vida del software en la institución</div>
+      <div class="card-pregunta">¿Qué software usan los docentes del CED, cuándo fue instalado y cuántos tienen versiones desactualizadas o sin soporte?</div>
+      <div class="card-tags">
+        <span class="tag tag-hw">Hardware</span>
+        <span class="tag tag-sw">Software</span>
+        <span class="tag tag-inv">Relevamiento</span>
+      </div>
+    </div>
+
+    <!-- TARJETA 15 -->
+    <div class="card" data-mat="alg lab" onclick="abrirModal(14)">
+      <div class="card-icon">🗺️</div>
+      <div class="card-titulo">Pseudocódigo vs código real: la brecha</div>
+      <div class="card-pregunta">¿Los estudiantes que diseñan el algoritmo en pseudocódigo antes de programar cometen menos errores que los que van directo al código?</div>
+      <div class="card-tags">
+        <span class="tag tag-alg">Algorítmica</span>
+        <span class="tag tag-lab">Lab</span>
+        <span class="tag tag-inv">Experimento</span>
+      </div>
+    </div>
+
+    <!-- TARJETA 16 -->
+    <div class="card" data-mat="py sw" onclick="abrirModal(15)">
+      <div class="card-icon">🤖</div>
+      <div class="card-titulo">¿Dependen los estudiantes de la IA para programar?</div>
+      <div class="card-pregunta">¿Los estudiantes que usan asistentes de IA para programar aprenden más rápido o desarrollan menos autonomía?</div>
+      <div class="card-tags">
+        <span class="tag tag-py">Python</span>
+        <span class="tag tag-sw">Software</span>
+        <span class="tag tag-inv">Observación</span>
+      </div>
+    </div>
+
+    <!-- TARJETA 17 -->
+    <div class="card" data-mat="hw alg" onclick="abrirModal(16)">
+      <div class="card-icon">⚡</div>
+      <div class="card-titulo">Consumo eléctrico del laboratorio</div>
+      <div class="card-pregunta">¿Cuánto consume eléctricamente el laboratorio de informática del CED por mes y qué estrategias reducirían ese costo?</div>
+      <div class="card-tags">
+        <span class="tag tag-hw">Hardware</span>
+        <span class="tag tag-alg">Algorítmica</span>
+        <span class="tag tag-inv">Medición</span>
+      </div>
+    </div>
+
+    <!-- TARJETA 18 -->
+    <div class="card" data-mat="py lab alg" onclick="abrirModal(17)">
+      <div class="card-icon">📈</div>
+      <div class="card-titulo">Progresión del aprendizaje en Python</div>
+      <div class="card-pregunta">¿Cómo evoluciona la cantidad y el tipo de errores de programación a lo largo del año en estudiantes de 2do BATIN?</div>
+      <div class="card-tags">
+        <span class="tag tag-py">Python</span>
+        <span class="tag tag-lab">Lab</span>
+        <span class="tag tag-alg">Algorítmica</span>
+        <span class="tag tag-inv">Longitudinal</span>
+      </div>
+    </div>
+
+  </div><!-- fin grid -->
+
+  <footer>
+    <p>CED Miguela Rodríguez · <span>ICIENTEC 2026</span> · 2do Bachillerato Técnico en Informática</p>
+    <p style="margin-top:6px">Prof. Daniela Ferreira · Gabinete de Informática</p>
+  </footer>
+
+</div><!-- fin wrapper -->
+
+<!-- MODAL -->
+<div class="modal-overlay" id="modal-overlay" onclick="cerrarModal(event)">
+  <div class="modal" id="modal-content">
+    <button class="modal-close" onclick="cerrarModal()">✕</button>
+    <div id="modal-body"></div>
+  </div>
+</div>
+
+<script>
+const proyectos = [
+  {
+    icon: "🖥️",
+    titulo: "¿Cuánto dura realmente una PC de escuela?",
+    pregunta: "¿Existe relación entre la antigüedad del hardware y la frecuencia de fallas reportadas en el colegio?",
+    contexto: "Las PCs de los laboratorios escolares en Paraguay tienen en promedio más de 8 años. Nadie sistematizó cuándo fallan ni por qué.",
+    pasos: [
+      "<strong>Relevamiento:</strong> registrá marca, modelo, año y fallas de cada PC del CED",
+      "<strong>Entrevistas:</strong> consultá a docentes y técnicos sobre problemas frecuentes",
+      "<strong>Tabulación:</strong> organizá los datos en una tabla comparativa",
+      "<strong>Análisis:</strong> calculá promedios de vida útil y tipo de falla más común",
+      "<strong>Propuesta:</strong> plan de mantenimiento preventivo con calendario"
+    ],
+    conexion: "Conecta directamente con <strong>Hardware</strong> (componentes, mantenimiento) y <strong>Algorítmica</strong> (tablas, cálculo de promedios y frecuencias).",
+    tags: ["hw", "alg", "inv"]
+  },
+  {
+    icon: "📱",
+    titulo: "Celular como herramienta de aprendizaje",
+    pregunta: "¿Los estudiantes del CED usan el celular más para estudiar o para distraerse durante las clases?",
+    contexto: "Todos tienen celular. Pydroid3 funciona en él. Pero nadie midió exactamente para qué se usa en clase.",
+    pasos: [
+      "<strong>Observación:</strong> registrá usos del celular durante 2 semanas en distintas materias",
+      "<strong>Encuesta:</strong> preguntá a estudiantes de 1ro, 2do y 3ro cómo usan el celular",
+      "<strong>Categorización:</strong> clasificá usos en productivos / distracción / mixtos",
+      "<strong>Análisis con Python:</strong> contadores y porcentajes por categoría",
+      "<strong>Propuesta:</strong> protocolo de uso responsable del celular en clase"
+    ],
+    conexion: "Conecta con <strong>Laboratorio</strong> (Python para análisis de datos) y el contexto real de la institución.",
+    tags: ["py", "lab", "inv"]
+  },
+  {
+    icon: "🔓",
+    titulo: "Software pirata en las casas",
+    pregunta: "¿Qué porcentaje de hogares del barrio usa software sin licencia y por qué razones?",
+    contexto: "En Software vieron ética, licencias y piratería. Este proyecto verifica si eso se aplica en la realidad del entorno.",
+    pasos: [
+      "<strong>Encuesta:</strong> diseñá un formulario anónimo sobre software instalado en casa",
+      "<strong>Muestra:</strong> encuestá al menos 40 hogares del barrio",
+      "<strong>Análisis:</strong> calculá porcentajes de uso legal vs ilegal por tipo de software",
+      "<strong>Causas:</strong> identificá las razones más frecuentes (costo, desconocimiento, costumbre)",
+      "<strong>Propuesta:</strong> listado de alternativas gratuitas y legales por categoría"
+    ],
+    conexion: "Conecta con <strong>Software</strong> (licencias, ética, software libre) y <strong>Python</strong> (análisis de datos de la encuesta).",
+    tags: ["sw", "py", "inv"]
+  },
+  {
+    icon: "♻️",
+    titulo: "Basura electrónica en el barrio",
+    pregunta: "¿Cómo desechan equipos informáticos viejos los hogares del barrio y qué riesgos implica?",
+    contexto: "El e-waste es un problema ambiental global que empieza en casa. Paraguay no tiene regulación clara al respecto.",
+    pasos: [
+      "<strong>Encuesta:</strong> preguntá a vecinos qué hacen con sus equipos viejos",
+      "<strong>Relevamiento:</strong> buscá puntos de descarte o reciclado en la zona",
+      "<strong>Investigación:</strong> investigá qué materiales tóxicos contienen los equipos",
+      "<strong>Mapeo:</strong> identificá cuántos equipos se descartan por año en el barrio",
+      "<strong>Propuesta:</strong> campaña de concientización o punto de recolección en el CED"
+    ],
+    conexion: "Conecta con <strong>Hardware</strong> (componentes físicos, materiales) y <strong>Python</strong> (tabulación y visualización de datos).",
+    tags: ["hw", "py", "inv"]
+  },
+  {
+    icon: "🧮",
+    titulo: "¿Algorítmica o Matemática? El puente que falta",
+    pregunta: "¿Los estudiantes que resuelven mejor problemas matemáticos también programan con menos errores lógicos?",
+    contexto: "Hay una hipótesis no probada: pensar matemáticamente ayuda a programar. Este proyecto la pone a prueba con datos reales.",
+    pasos: [
+      "<strong>Datos:</strong> recopilá notas de Matemática y Algorítmica del curso",
+      "<strong>Clasificación:</strong> dividí en grupos alto/medio/bajo rendimiento en cada materia",
+      "<strong>Análisis:</strong> buscá correlación entre el desempeño en ambas materias",
+      "<strong>Casos:</strong> entrevistá estudiantes con perfiles distintos para entender estrategias",
+      "<strong>Propuesta:</strong> ejercicios puente entre lógica matemática y algorítmica"
+    ],
+    conexion: "Conecta con <strong>Algorítmica</strong> (lógica estructurada) y <strong>Python</strong> (análisis estadístico básico con listas y promedios).",
+    tags: ["alg", "py", "inv"]
+  },
+  {
+    icon: "🧠",
+    titulo: "Inteligencia artificial: ¿miedo o herramienta?",
+    pregunta: "¿Qué percepción tienen los docentes del CED sobre la IA en el aula y cómo difiere de la de los estudiantes?",
+    contexto: "En Software vieron inteligencia artificial como concepto. Este proyecto mide qué piensan las personas reales de su entorno.",
+    pasos: [
+      "<strong>Encuesta diferenciada:</strong> diseñá dos versiones: una para docentes, otra para estudiantes",
+      "<strong>Variables:</strong> medí conocimiento, uso, percepción de riesgo y confianza",
+      "<strong>Comparación:</strong> analizá diferencias generacionales en las respuestas",
+      "<strong>Análisis:</strong> identificá mitos y realidades sobre IA en el CED",
+      "<strong>Propuesta:</strong> taller de alfabetización en IA para la comunidad educativa"
+    ],
+    conexion: "Conecta con <strong>Software</strong> (inteligencia artificial, aplicaciones de la informática) y <strong>Python</strong> (conteo y análisis de respuestas).",
+    tags: ["sw", "py", "inv"]
+  },
+  {
+    icon: "🔧",
+    titulo: "Mantenimiento cero: consecuencias reales",
+    pregunta: "¿Qué diferencia hay en el rendimiento de PCs con y sin mantenimiento preventivo en instituciones educativas?",
+    contexto: "Hardware enseña mantenimiento preventivo y correctivo. Este proyecto verifica si hacerlo realmente importa.",
+    pasos: [
+      "<strong>Selección:</strong> identificá PCs con y sin mantenimiento reciente en el CED",
+      "<strong>Medición:</strong> registrá tiempos de arranque, temperatura y velocidad de respuesta",
+      "<strong>Mantenimiento:</strong> aplicá limpieza y ajuste en un grupo, dejá el otro sin cambios",
+      "<strong>Comparación:</strong> medí los mismos indicadores después del mantenimiento",
+      "<strong>Propuesta:</strong> plan semestral de mantenimiento preventivo para el laboratorio"
+    ],
+    conexion: "Conecta con <strong>Hardware</strong> (mantenimiento preventivo, diagnóstico) y <strong>Laboratorio</strong> (registro y análisis de datos).",
+    tags: ["hw", "lab", "inv"]
+  },
+  {
+    icon: "📊",
+    titulo: "El primer error de programación",
+    pregunta: "¿Cuáles son los errores más frecuentes que cometen los estudiantes de 2do BATIN al programar en Python y en qué momento ocurren?",
+    contexto: "Este proyecto investiga desde adentro: los mismos estudiantes son los sujetos de estudio. Datos únicos y originales.",
+    pasos: [
+      "<strong>Registro:</strong> anotá errores de compilación/ejecución durante 6 semanas de clases",
+      "<strong>Categorización:</strong> clasificá en sintaxis, lógica, tipos, índices, etc.",
+      "<strong>Temporalidad:</strong> registrá en qué semana del aprendizaje ocurre cada tipo",
+      "<strong>Análisis:</strong> identificá el error más costoso en tiempo y el más frecuente",
+      "<strong>Propuesta:</strong> guía de errores comunes y cómo resolverlos para futuros 2dos"
+    ],
+    conexion: "Conecta con <strong>Python</strong> y <strong>Algorítmica</strong>. Es investigación-acción dentro del aula: los datos están al alcance de la mano.",
+    tags: ["py", "alg", "inv"]
+  },
+  {
+    icon: "🌐",
+    titulo: "Conectividad real en el aula",
+    pregunta: "¿Cuál es la velocidad real de internet disponible en el CED y cómo afecta las actividades de aprendizaje digital?",
+    contexto: "Todo el mundo se queja del wifi. Nadie lo midió sistemáticamente para proponer una solución concreta.",
+    pasos: [
+      "<strong>Medición:</strong> registrá velocidades de subida/bajada en distintos horarios y aulas",
+      "<strong>Mapeo:</strong> identificá zonas con mejor y peor señal en el edificio",
+      "<strong>Encuesta:</strong> preguntá a docentes y alumnos cómo afecta la conectividad sus clases",
+      "<strong>Análisis:</strong> correlacioná velocidad, hora y cantidad de usuarios conectados",
+      "<strong>Propuesta:</strong> recomendaciones técnicas para mejorar la red del CED"
+    ],
+    conexion: "Conecta con <strong>Software</strong> (redes, protocolos) y <strong>Hardware</strong> (infraestructura de red, routers).",
+    tags: ["sw", "hw", "inv"]
+  },
+  {
+    icon: "💤",
+    titulo: "¿Cuánto duermen los estudiantes técnicos?",
+    pregunta: "¿Existe relación entre las horas de sueño y el rendimiento en materias técnicas como Laboratorio y Algorítmica?",
+    contexto: "Los estudiantes técnicos tienen carga horaria alta. Nadie midió si eso afecta su rendimiento en las materias más exigentes.",
+    pasos: [
+      "<strong>Encuesta:</strong> relevá horas de sueño durante 2 semanas en el curso",
+      "<strong>Datos académicos:</strong> cruzá con notas de Algorítmica y Laboratorio del mismo período",
+      "<strong>Grupos:</strong> clasificá en menos de 6hs, 6-8hs y más de 8hs de sueño",
+      "<strong>Análisis:</strong> calculá promedio de rendimiento por grupo",
+      "<strong>Propuesta:</strong> recomendaciones de hábitos para estudiantes técnicos"
+    ],
+    conexion: "Conecta con <strong>Python</strong> (análisis estadístico) y <strong>Laboratorio</strong> (datos reales del propio curso como fuente de investigación).",
+    tags: ["py", "lab", "inv"]
+  },
+  {
+    icon: "🔐",
+    titulo: "Contraseñas inseguras: el eslabón débil",
+    pregunta: "¿Qué tan seguras son las contraseñas que usan los estudiantes del CED y cuántos conocen las buenas prácticas?",
+    contexto: "En Software vieron seguridad informática. Este proyecto mide si ese conocimiento se traslada al comportamiento real.",
+    pasos: [
+      "<strong>Encuesta anónima:</strong> preguntá sobre características de las contraseñas que usan (sin pedirlas)",
+      "<strong>Test de conocimiento:</strong> evaluá si conocen criterios de contraseña segura",
+      "<strong>Análisis:</strong> cruzá conocimiento vs práctica real",
+      "<strong>Clasificación:</strong> categorizá nivel de seguridad de los hábitos",
+      "<strong>Propuesta:</strong> taller de seguridad digital para el curso o para toda la institución"
+    ],
+    conexion: "Conecta con <strong>Software</strong> (seguridad, ética) y <strong>Algorítmica</strong> (análisis lógico de patrones de respuesta).",
+    tags: ["sw", "alg", "inv"]
+  },
+  {
+    icon: "🌡️",
+    titulo: "Calor y rendimiento de equipos",
+    pregunta: "¿Cómo influye la temperatura ambiente del aula en el rendimiento y la estabilidad de las computadoras del laboratorio?",
+    contexto: "Paraguay tiene veranos extremos. Los laboratorios escolares rara vez tienen climatización. Nadie midió el impacto.",
+    pasos: [
+      "<strong>Medición:</strong> registrá temperatura del aula y temperatura interna de las PCs en distintos horarios",
+      "<strong>Rendimiento:</strong> medí velocidad de procesamiento en distintas condiciones térmicas",
+      "<strong>Fallas:</strong> registrá reinicios o cierres inesperados y la temperatura al momento",
+      "<strong>Análisis:</strong> establecé un umbral de temperatura crítica para los equipos",
+      "<strong>Propuesta:</strong> medidas de ventilación o uso horario del laboratorio según temperatura"
+    ],
+    conexion: "Conecta con <strong>Hardware</strong> (componentes, temperatura, disipación) y <strong>Python</strong> (registro y graficación de datos).",
+    tags: ["hw", "py", "inv"]
+  },
+  {
+    icon: "🎮",
+    titulo: "Videojuegos y aprendizaje: ¿enemigos o aliados?",
+    pregunta: "¿Los estudiantes que juegan videojuegos estratégicos desarrollan mejor pensamiento lógico que los que no juegan?",
+    contexto: "Hay estudios internacionales al respecto, pero ninguno con estudiantes técnicos de Paraguay.",
+    pasos: [
+      "<strong>Clasificación:</strong> encuestá qué tipo de videojuegos juega cada estudiante y cuánto tiempo",
+      "<strong>Test lógico:</strong> aplicá un test estandarizado de pensamiento lógico al grupo",
+      "<strong>Correlación:</strong> analizá si el tipo y frecuencia de juego se relaciona con el resultado",
+      "<strong>Grupos:</strong> comparé jugadores de estrategia vs acción vs no jugadores",
+      "<strong>Propuesta:</strong> posibles actividades con videojuegos educativos en el aula"
+    ],
+    conexion: "Conecta con <strong>Python</strong> (análisis de correlación básica) y <strong>Software</strong> (aplicaciones de la informática, IA en juegos).",
+    tags: ["py", "sw", "inv"]
+  },
+  {
+    icon: "🏫",
+    titulo: "Ciclo de vida del software en la institución",
+    pregunta: "¿Qué software usan los docentes del CED, cuándo fue instalado y cuántos tienen versiones desactualizadas?",
+    contexto: "En Software vieron ciclo de vida del software. Este proyecto aplica ese concepto a la realidad de su propia institución.",
+    pasos: [
+      "<strong>Inventario:</strong> relevá el software instalado en las PCs del CED",
+      "<strong>Versiones:</strong> verificá si están actualizadas o tienen soporte activo",
+      "<strong>Uso real:</strong> encuestá docentes sobre qué software realmente usan en clase",
+      "<strong>Análisis:</strong> clasificá software por estado (vigente, obsoleto, sin licencia, libre)",
+      "<strong>Propuesta:</strong> plan de actualización y migración a software libre donde corresponda"
+    ],
+    conexion: "Conecta directamente con <strong>Software</strong> (ciclo de vida, licencias, SO) y <strong>Hardware</strong> (requisitos de sistema, compatibilidad).",
+    tags: ["sw", "hw", "inv"]
+  },
+  {
+    icon: "🗺️",
+    titulo: "Pseudocódigo vs código real: la brecha",
+    pregunta: "¿Los estudiantes que diseñan el algoritmo en pseudocódigo antes de programar cometen menos errores?",
+    contexto: "En Algorítmica aprenden pseudocódigo. En Laboratorio programan. Nadie verificó si uno realmente ayuda al otro.",
+    pasos: [
+      "<strong>Experimento:</strong> dividí el curso en dos grupos para resolver el mismo problema",
+      "<strong>Grupo A:</strong> diseña pseudocódigo primero, luego programa",
+      "<strong>Grupo B:</strong> va directo al código sin pseudocódigo previo",
+      "<strong>Medición:</strong> contá errores, tiempo y cantidad de correcciones en cada grupo",
+      "<strong>Análisis:</strong> compará resultados y buscá diferencias estadísticas"
+    ],
+    conexion: "Conecta con <strong>Algorítmica</strong> (pseudocódigo, lógica) y <strong>Laboratorio</strong> (programación en Python). Datos recolectados en el propio aula.",
+    tags: ["alg", "lab", "inv"]
+  },
+  {
+    icon: "🤖",
+    titulo: "¿Dependen los estudiantes de la IA para programar?",
+    pregunta: "¿Los estudiantes que usan asistentes de IA para programar aprenden más rápido o desarrollan menos autonomía?",
+    contexto: "ChatGPT y similares escriben código. La pregunta es si usarlos ayuda a aprender o sustituye el aprendizaje.",
+    pasos: [
+      "<strong>Encuesta:</strong> relevá con qué frecuencia y para qué usan IA al programar",
+      "<strong>Test sin IA:</strong> evaluá resolución de problemas sin asistencia de herramientas externas",
+      "<strong>Comparación:</strong> cruzá uso de IA con autonomía demostrada en el test",
+      "<strong>Entrevistas:</strong> preguntá a estudiantes cómo describen su propio proceso de aprendizaje",
+      "<strong>Propuesta:</strong> protocolo de uso responsable de IA en materias técnicas"
+    ],
+    conexion: "Conecta con <strong>Python</strong> (el lenguaje que usan y para el cual buscan ayuda) y <strong>Software</strong> (IA, ética en el uso de tecnología).",
+    tags: ["py", "sw", "inv"]
+  },
+  {
+    icon: "⚡",
+    titulo: "Consumo eléctrico del laboratorio",
+    pregunta: "¿Cuánto consume eléctricamente el laboratorio del CED por mes y qué estrategias reducirían ese costo?",
+    contexto: "Las instituciones educativas pagan facturas de luz altas. Nadie calculó cuánto aporta el laboratorio de informática.",
+    pasos: [
+      "<strong>Medición:</strong> calculá el consumo estimado de cada equipo (Watts × horas de uso)",
+      "<strong>Relevamiento:</strong> registrá horas reales de uso del laboratorio por semana",
+      "<strong>Cálculo:</strong> estimá el costo mensual en guaraníes con tarifas de ANDE",
+      "<strong>Comparación:</strong> compará con y sin medidas de ahorro (apagado en recreos, modo ahorro)",
+      "<strong>Propuesta:</strong> protocolo de uso eficiente del laboratorio con impacto económico estimado"
+    ],
+    conexion: "Conecta con <strong>Hardware</strong> (componentes y su consumo energético) y <strong>Algorítmica</strong> (cálculos, fórmulas, tablas comparativas).",
+    tags: ["hw", "alg", "inv"]
+  },
+  {
+    icon: "📈",
+    titulo: "Progresión del aprendizaje en Python",
+    pregunta: "¿Cómo evoluciona la cantidad y el tipo de errores de programación a lo largo del año en 2do BATIN?",
+    contexto: "Este es un proyecto longitudinal único: sigue al propio curso durante todo el año. Los datos son irrepetibles.",
+    pasos: [
+      "<strong>Registro continuo:</strong> anotá errores de cada clase desde marzo hasta noviembre",
+      "<strong>Categorización:</strong> clasificá por tipo en cada unidad temática",
+      "<strong>Análisis temporal:</strong> graficá la evolución de errores mes a mes",
+      "<strong>Hitos:</strong> identificá qué temas generan más errores y en qué momento disminuyen",
+      "<strong>Producto:</strong> informe de progresión con curva de aprendizaje del grupo"
+    ],
+    conexion: "Conecta con <strong>Python</strong>, <strong>Laboratorio</strong> y <strong>Algorítmica</strong>. Es investigación acción longitudinal: los datos están en el aula todos los lunes y jueves.",
+    tags: ["py", "lab", "alg", "inv"]
+  }
+];
+
+function abrirModal(i) {
+  const p = proyectos[i];
+  const pasos = p.pasos.map(paso => `<li>${paso}</li>`).join('');
+  const tags = p.tags.map(t => {
+    const clases = {py:'tag-py',hw:'tag-hw',sw:'tag-sw',alg:'tag-alg',lab:'tag-lab',inv:'tag-inv'};
+    const labels = {py:'Python',hw:'Hardware',sw:'Software',alg:'Algorítmica',lab:'Laboratorio',inv:'Investigación'};
+    return `<span class="tag ${clases[t]}">${labels[t]}</span>`;
+  }).join('');
+
+  document.getElementById('modal-body').innerHTML = `
+    <div class="modal-icon">${p.icon}</div>
+    <div class="modal-titulo">${p.titulo}</div>
+    <div class="modal-pregunta">"${p.pregunta}"</div>
+    <div class="modal-section">
+      <div class="modal-section-title">Contexto</div>
+      <p style="font-size:13px;color:var(--muted);line-height:1.6">${p.contexto}</p>
+    </div>
+    <div class="modal-section">
+      <div class="modal-section-title">Pasos sugeridos</div>
+      <ul>${pasos}</ul>
+    </div>
+    <div class="modal-section">
+      <div class="modal-section-title">Conexión con tus materias</div>
+      <div class="modal-conexion">${p.conexion}</div>
+    </div>
+    <div class="modal-tags">${tags}</div>
+  `;
+  document.getElementById('modal-overlay').classList.add('visible');
+  document.body.style.overflow = 'hidden';
+}
+
+function cerrarModal(e) {
+  if (!e || e.target === document.getElementById('modal-overlay') || e.target.classList.contains('modal-close')) {
+    document.getElementById('modal-overlay').classList.remove('visible');
+    document.body.style.overflow = '';
+  }
+}
+
+function filtrar(mat) {
+  document.querySelectorAll('.filtro-btn').forEach(b => b.classList.remove('activo'));
+  document.querySelector(`[data-mat="${mat}"]`).classList.add('activo');
+  const cards = document.querySelectorAll('.card');
+  let visible = 0;
+  cards.forEach(card => {
+    const mats = card.getAttribute('data-mat');
+    if (mat === 'todos' || mats.includes(mat)) {
+      card.classList.remove('oculta');
+      visible++;
+    } else {
+      card.classList.add('oculta');
+    }
+  });
+  document.getElementById('num-visible').textContent = visible;
+}
+
+document.addEventListener('keydown', e => { if (e.key === 'Escape') cerrarModal({target: document.getElementById('modal-overlay')}); });
+</script>
+</body>
+</html>
