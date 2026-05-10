@@ -4,19 +4,19 @@
 <meta charset="UTF-8">
 <meta name="viewport" content="width=device-width, initial-scale=1.0">
 <title>Misión Primer Año · Proyectos 1ro BATIN</title>
-<link href="https://fonts.googleapis.com/css2?family=Syne:wght@400;700;800&family=DM+Sans:ital,wght@0,300;0,400;0,500;1,300&family=JetBrains+Mono:wght@400;700&display=swap" rel="stylesheet">
+<link href="https://fonts.googleapis.com/css2?family=Orbitron:wght@400;700;800;900&family=DM+Sans:ital,wght@0,300;0,400;0,500;1,300&family=JetBrains+Mono:wght@400;700&display=swap" rel="stylesheet">
 <style>
   :root {
-    --bg:       #0d0d0d;
-    --surface:  #141414;
-    --card:     #1c1c1c;
-    --border:   #2a2a2a;
-    --accent:   #39ff8f;
-    --accent2:  #00c8ff;
-    --accent3:  #ff6b35;
-    --gold:     #f0c040;
-    --text:     #eeeae3;
-    --muted:    #777;
+    --bg:       #fff8f2;
+    --surface:  #fff1e6;
+    --card:     #ffffff;
+    --border:   #f0c9a0;
+    --accent:   #c45e00;
+    --accent2:  #0077aa;
+    --accent3:  #e05000;
+    --gold:     #c47800;
+    --text:     #2a1800;
+    --muted:    #996633;
     --radius:   10px;
   }
 
@@ -24,7 +24,7 @@
 
   body {
     background: var(--bg);
-    color: var(--text);
+    color: #2a1800;
     font-family: 'DM Sans', sans-serif;
     font-size: 15px;
     line-height: 1.7;
@@ -32,7 +32,7 @@
 
   /* ── TERMINAL HEADER ── */
   .terminal-bar {
-    background: #111;
+    background: #fde8d0;
     border-bottom: 1px solid var(--border);
     padding: .5rem 1.5rem;
     display: flex;
@@ -66,8 +66,8 @@
     display: block;
   }
   .hero h1 {
-    font-family: 'Syne', sans-serif;
-    font-size: clamp(2rem, 6vw, 3.5rem);
+    font-family: 'Orbitron', sans-serif;
+    font-size: clamp(1.6rem, 4.5vw, 2.8rem);
     font-weight: 800;
     line-height: 1.05;
     margin-bottom: 1.5rem;
@@ -107,7 +107,7 @@
     font-size: 14px;
   }
   .char-card .emoji { font-size: 24px; }
-  .char-card .name { font-family: 'Syne', sans-serif; font-weight: 700; font-size: .9rem; }
+  .char-card .name { font-family: 'Orbitron', sans-serif; font-weight: 700; font-size: .9rem; }
   .char-card .role { font-size: 12px; color: var(--muted); }
 
   /* ── SEPARADOR ── */
@@ -131,7 +131,7 @@
     padding: 1.25rem 1.5rem;
     font-family: 'JetBrains Mono', monospace;
     font-size: 13px;
-    color: #aaa;
+    color: #7a4a1a;
     margin-bottom: 1.5rem;
     line-height: 1.8;
   }
@@ -139,7 +139,7 @@
   .narrative .terminal-block .out   { color: var(--text); }
   .narrative .terminal-block .warn  { color: var(--gold); }
   .narrative p {
-    color: #ccc;
+    color: #5a3010;
     font-size: 15px;
     margin-bottom: 1rem;
   }
@@ -181,7 +181,7 @@
     margin-bottom: .4rem;
   }
   .how-card .step-title {
-    font-family: 'Syne', sans-serif;
+    font-family: 'Orbitron', sans-serif;
     font-weight: 700;
     font-size: .95rem;
     margin-bottom: .3rem;
@@ -198,8 +198,8 @@
     padding: 0 1.5rem 4rem;
   }
   .section-title {
-    font-family: 'Syne', sans-serif;
-    font-size: 1.4rem;
+    font-family: 'Orbitron', sans-serif;
+    font-size: 1.15rem;
     font-weight: 800;
     margin-bottom: .4rem;
   }
@@ -228,7 +228,7 @@
     cursor: pointer;
     transition: all .15s;
   }
-  .filter-btn:hover { border-color: #555; color: #ccc; }
+  .filter-btn:hover { border-color: #c45e00; color: #c45e00; }
   .filter-btn.on {
     background: var(--card);
     border-color: var(--accent);
@@ -264,7 +264,7 @@
     opacity: 0;
     transition: opacity .15s;
   }
-  .pcard:hover { border-color: #444; transform: translateY(-2px); }
+  .pcard:hover { border-color: #c45e00; transform: translateY(-2px); }
   .pcard:hover::before { opacity: 1; }
   .pcard.tipo-word::before { background: var(--accent2); }
   .pcard.tipo-hist::before { background: var(--gold); }
@@ -289,12 +289,12 @@
   .badge-mesa  { border-color: var(--accent3); color: var(--accent3); }
 
   .pcard-title {
-    font-family: 'Syne', sans-serif;
+    font-family: 'Orbitron', sans-serif;
     font-size: 1rem;
     font-weight: 700;
     line-height: 1.3;
   }
-  .pcard-desc { font-size: 13px; color: #999; line-height: 1.55; }
+  .pcard-desc { font-size: 13px; color: #7a4a1a; line-height: 1.55; }
 
   .pcard-tags {
     display: flex;
@@ -305,7 +305,7 @@
     font-family: 'JetBrains Mono', monospace;
     font-size: 10px;
     padding: 2px 6px;
-    background: #222;
+    background: #fde8d0;
     border: 1px solid var(--border);
     border-radius: 3px;
     color: #666;
@@ -347,7 +347,7 @@
   .overlay.open { display: flex; }
   .modal {
     background: var(--card);
-    border: 1px solid #333;
+    border: 1px solid var(--border);
     border-radius: 14px;
     padding: 1.75rem;
     max-width: 500px;
@@ -366,7 +366,7 @@
   .modal-close:hover { color: var(--text); }
   .modal-header { margin-bottom: 1rem; }
   .modal-header h2 {
-    font-family: 'Syne', sans-serif;
+    font-family: 'Orbitron', sans-serif;
     font-size: 1.2rem;
     font-weight: 800;
     margin-bottom: .4rem;
@@ -394,8 +394,8 @@
     gap: .4rem;
   }
   .msec-label::after { content: ''; flex: 1; height: 1px; background: var(--border); }
-  .msec p  { font-size: 14px; color: #bbb; line-height: 1.6; }
-  .msec li { font-size: 14px; color: #bbb; line-height: 1.7; }
+  .msec p  { font-size: 14px; color: #5a3010; line-height: 1.6; }
+  .msec li { font-size: 14px; color: #5a3010; line-height: 1.7; }
   .msec ul { padding-left: 1.2rem; }
   .msec li { margin-bottom: .15rem; }
 
@@ -414,7 +414,7 @@
     transition: background .15s;
     text-align: center;
   }
-  .mission-btn:hover { background: rgba(57,255,143,.08); }
+  .mission-btn:hover { background: rgba(196,94,0,.08); }
 
   /* ── FERIA ── */
   .feria-section {
@@ -430,13 +430,13 @@
     padding: 1.5rem 1.75rem;
   }
   .feria-box h3 {
-    font-family: 'Syne', sans-serif;
+    font-family: 'Orbitron', sans-serif;
     font-weight: 800;
     font-size: 1.1rem;
     color: var(--accent3);
     margin-bottom: .8rem;
   }
-  .feria-box p { font-size: 14px; color: #bbb; margin-bottom: .6rem; }
+  .feria-box p { font-size: 14px; color: #5a3010; margin-bottom: .6rem; }
   .feria-steps {
     display: grid;
     grid-template-columns: repeat(auto-fit, minmax(140px, 1fr));
@@ -458,7 +458,7 @@
     display: block;
     margin-bottom: .25rem;
   }
-  .fstep .ft { font-size: 12px; color: #aaa; }
+  .fstep .ft { font-size: 12px; color: #996633; }
 
   /* ── FOOTER ── */
   footer {
@@ -475,7 +475,7 @@
   /* scrollbar dark */
   ::-webkit-scrollbar { width: 6px; }
   ::-webkit-scrollbar-track { background: var(--bg); }
-  ::-webkit-scrollbar-thumb { background: #333; border-radius: 3px; }
+  ::-webkit-scrollbar-thumb { background: #f0c9a0; border-radius: 3px; }
 
   @media (max-width: 500px) {
     .hero { padding: 2.5rem 1.2rem 2rem; }
