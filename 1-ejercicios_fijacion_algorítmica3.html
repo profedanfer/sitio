@@ -1,10 +1,10 @@
 
 <style>
   * { box-sizing: border-box; margin: 0; padding: 0; }
-  .header { background: #2c2c2c; color: #fff; padding: 1rem 1.25rem; border-radius: var(--border-radius-lg); display: flex; align-items: center; gap: 14px; margin-bottom: 1.5rem; }
+  .header { background: #6b7280; color: #fff; padding: 1rem 1.25rem; border-radius: var(--border-radius-lg); display: flex; align-items: center; gap: 14px; margin-bottom: 1.5rem; }
   .header-text h1 { font-size: 17px; font-weight: 500; color: #fff; }
-  .header-text p { font-size: 12px; color: #aaa; margin-top: 2px; }
-  .badge-inst { font-size: 11px; background: #E63012; color: #fff; padding: 3px 10px; border-radius: 20px; font-weight: 500; white-space: nowrap; }
+  .header-text p { font-size: 12px; color: #e5e7eb; margin-top: 2px; }
+  .badge-inst { font-size: 11px; background: #F97316; color: #fff; padding: 3px 10px; border-radius: 20px; font-weight: 500; white-space: nowrap; }
   .tabs { display: flex; gap: 6px; margin-bottom: 1.25rem; flex-wrap: wrap; }
   .tab-btn { border: 0.5px solid var(--color-border-secondary); background: var(--color-background-primary); color: var(--color-text-secondary); border-radius: 20px; padding: 6px 14px; font-size: 13px; cursor: pointer; transition: all 0.15s; font-family: var(--font-sans); }
   .tab-btn:hover { background: var(--color-background-secondary); }
@@ -25,6 +25,7 @@
   .answer-toggle { background: none; border: 0.5px solid var(--color-border-secondary); border-radius: var(--border-radius-md); padding: 6px 12px; font-size: 13px; cursor: pointer; color: var(--color-text-secondary); margin-top: 10px; font-family: var(--font-sans); transition: background 0.15s; }
   .answer-toggle:hover { background: var(--color-background-secondary); }
   .answer-box { display: none; margin-top: 8px; background: var(--color-background-secondary); border-radius: var(--border-radius-md); padding: 10px 12px; font-size: 13px; color: var(--color-text-primary); line-height: 1.7; border-left: 3px solid #1D9E75; }
+  .answer-box pre { font-family: var(--font-mono); font-size: 12px; background: var(--color-background-tertiary); border-radius: 4px; padding: 8px 10px; margin-top: 6px; overflow-x: auto; }
   .section-label { font-size: 13px; font-weight: 500; color: var(--color-text-secondary); margin-bottom: 12px; display: flex; align-items: center; gap: 8px; }
   .section-label::after { content: ''; flex: 1; height: 0.5px; background: var(--color-border-tertiary); }
   .tbl-wrap { overflow-x: auto; margin-top: 10px; }
@@ -32,15 +33,14 @@
   table.lista-tbl th { background: var(--color-background-secondary); color: var(--color-text-secondary); font-weight: 500; padding: 6px 10px; border: 0.5px solid var(--color-border-tertiary); text-align: center; font-family: var(--font-sans); font-size: 12px; }
   table.lista-tbl td { padding: 5px 10px; border: 0.5px solid var(--color-border-tertiary); text-align: center; color: var(--color-text-primary); }
   table.lista-tbl tr:nth-child(even) td { background: var(--color-background-secondary); }
-  .blank { display: inline-block; width: 28px; border-bottom: 1.5px solid var(--color-text-primary); text-align: center; }
-  .note { font-size: 12px; color: var(--color-text-secondary); margin-top: 8px; font-style: italic; }
-  .answer-box table.lista-tbl th { background: var(--color-background-tertiary); }
-  .paso-label { display: inline-block; font-size: 11px; background: #E6F1FB; color: #185FA5; border-radius: 10px; padding: 2px 8px; font-weight: 500; margin-bottom: 6px; }
+  .pi-row { display: flex; gap: 16px; flex-wrap: wrap; margin: 8px 0 4px; }
+  .pi-chip { font-size: 12px; background: var(--color-background-tertiary); border-radius: var(--border-radius-md); padding: 4px 10px; color: var(--color-text-primary); font-family: var(--font-mono); }
+  .paso-label { display: inline-block; font-size: 11px; background: #E6F1FB; color: #185FA5; border-radius: 10px; padding: 2px 8px; font-weight: 500; margin-bottom: 4px; margin-top: 6px; }
 </style>
 
 <div style="padding: 0.25rem 0 1.5rem;">
   <div class="header">
-    <div style="width: 44px; height: 44px; border-radius: 50%; background: #E63012; display: flex; align-items: center; justify-content: center; font-weight: 500; font-size: 15px; color: #fff; flex-shrink: 0;">MRA</div>
+    <div style="width: 54px; height: 44px; border-radius: 8px; background: #F97316; display: flex; align-items: center; justify-content: center; font-weight: 700; font-size: 11px; color: #fff; flex-shrink: 0; letter-spacing: 0.03em;">CEDMR</div>
     <div class="header-text" style="flex:1;">
       <h1>Ejercicios de Fijación — Algorítmica 3</h1>
       <p>Arreglos · Pilas · Colas · Listas Enlazadas</p>
@@ -78,10 +78,10 @@ System.out.println("Prom: " + (suma / notas.length));</pre>
       <div class="ex-title">Buscar el máximo</div>
       <div class="ex-body">Dado el arreglo <code>int[] temps = {23, 31, 18, 35, 29, 12, 40}</code>, escribí un algoritmo que encuentre e imprima el valor más alto y la posición donde se encuentra.</div>
       <button class="answer-toggle" onclick="toggleAns(this)">Ver respuesta</button>
-      <div class="answer-box"><pre style="font-family:var(--font-mono);font-size:12px;background:var(--color-background-tertiary);border-radius:4px;padding:8px 10px;margin-top:6px;overflow-x:auto;">int max = temps[0];
+      <div class="answer-box"><pre>int max = temps[0];
 int pos = 0;
-for (int i = 1; i < temps.length; i++) {
-    if (temps[i] > max) {
+for (int i = 1; i &lt; temps.length; i++) {
+    if (temps[i] &gt; max) {
         max = temps[i];
         pos = i;
     }
@@ -95,7 +95,7 @@ System.out.println("Max: " + max + " en posicion " + pos);</pre>
       <div class="ex-body">El siguiente algoritmo invierte un arreglo. Completá las partes faltantes:
         <pre style="font-family:var(--font-mono);background:var(--color-background-tertiary);border-radius:var(--border-radius-md);padding:10px 12px;font-size:12.5px;margin-top:8px;overflow-x:auto;line-height:1.6;color:var(--color-text-primary);">int[] arr = {1, 2, 3, 4, 5};
 int temp;
-for (int i = 0; i < ___/2; i++) {
+for (int i = 0; i &lt; ___/2; i++) {
     temp = arr[i];
     arr[i] = arr[___];
     arr[___] = temp;
@@ -114,8 +114,8 @@ for (int i = 0; i < ___/2; i++) {
         c) ¿Cuántos elementos tiene en total?
       </div>
       <button class="answer-toggle" onclick="toggleAns(this)">Ver respuesta</button>
-      <div class="answer-box">a) <code>m[1][2]</code> = 6<br><br>b)<pre style="font-family:var(--font-mono);font-size:12px;background:var(--color-background-tertiary);border-radius:4px;padding:8px 10px;margin-top:6px;overflow-x:auto;">int diag = 0;
-for (int i = 0; i < 3; i++) {
+      <div class="answer-box">a) <code>m[1][2]</code> = 6<br><br>b)<pre>int diag = 0;
+for (int i = 0; i &lt; 3; i++) {
     diag += m[i][i]; // 1+5+9
 }
 System.out.println(diag); // 15</pre>c) 3 × 3 = 9 elementos</div>
@@ -132,16 +132,14 @@ System.out.println(diag); // 15</pre>c) 3 × 3 = 9 elementos</div>
         1. <code>push(10)</code><br>2. <code>push(20)</code><br>3. <code>push(30)</code><br>4. <code>pop()</code><br>5. <code>push(40)</code><br>6. <code>pop()</code><br>7. ¿Cuál es la <strong>cima</strong> actual?
       </div>
       <button class="answer-toggle" onclick="toggleAns(this)">Ver respuesta</button>
-      <div class="answer-box">
-        1. [10]<br>2. [10, 20]<br>3. [10, 20, 30]<br>4. pop devuelve 30 → [10, 20]<br>5. [10, 20, 40]<br>6. pop devuelve 40 → [10, 20]<br>7. cima = 20
-      </div>
+      <div class="answer-box">1. [10]<br>2. [10, 20]<br>3. [10, 20, 30]<br>4. pop devuelve 30 → [10, 20]<br>5. [10, 20, 40]<br>6. pop devuelve 40 → [10, 20]<br>7. cima = 20</div>
     </div>
     <div class="ex-card">
       <div class="ex-num">Ejercicio 2</div><span class="tag tag-code">Codificar</span>
       <div class="ex-title">Implementar una pila con arreglo</div>
       <div class="ex-body">Usando un arreglo de enteros de tamaño 5, escribí los métodos <code>push(int x)</code> y <code>pop()</code>. Considerá los casos de pila llena y pila vacía.</div>
       <button class="answer-toggle" onclick="toggleAns(this)">Ver respuesta</button>
-      <div class="answer-box"><pre style="font-family:var(--font-mono);font-size:12px;background:var(--color-background-tertiary);border-radius:4px;padding:8px 10px;margin-top:6px;overflow-x:auto;">int[] pila = new int[5];
+      <div class="answer-box"><pre>int[] pila = new int[5];
 int tope = -1;
 
 void push(int x) {
@@ -221,11 +219,7 @@ int pop() {
       </div>
       <button class="answer-toggle" onclick="toggleAns(this)">Ver respuesta</button>
       <div class="answer-box">
-        a) Contigua<br>
-        b) Circular<br>
-        c) Doblemente encadenada<br>
-        d) Doblemente encadenada circular<br>
-        e) Enlazada simple
+        a) Contigua<br>b) Circular<br>c) Doblemente encadenada<br>d) Doblemente encadenada circular<br>e) Enlazada simple
       </div>
     </div>
 
@@ -247,14 +241,17 @@ int pop() {
         a) ¿En qué orden quedan los códigos? ¿Es ascendente o descendente?<br>
         b) ¿En qué orden quedan los nombres? ¿Es ascendente o descendente?<br>
         c) ¿El encadenamiento de teléfono es simple o circular? ¿Cómo lo determinás?<br>
-        d) ¿Cuál es el puntero inicial para cada encadenamiento?
+        d) Indicá el puntero inicial de cada encadenamiento (código, nombre y teléfono).
       </div>
       <button class="answer-toggle" onclick="toggleAns(this)">Ver respuesta</button>
       <div class="answer-box">
-        a) Siguiendo sig_cod desde puntero inicial (pos 1): 3150 → 4070 → 5280 → 6390. Orden <strong>ascendente</strong>.<br><br>
-        b) Siguiendo sig_nom desde pos 4: Aguirre → Morales → Romero → López. Orden <strong>descendente</strong>. Puntero inicial: 4.<br><br>
-        c) Es <strong>circular</strong>: el último nodo (pos 2, tel 0991-333) apunta a pos 3 (no a 0/null), formando un ciclo: 1→4→2→3→1.<br><br>
-        d) Puntero inicial código: pos 1 | Puntero inicial nombre: pos 4 | Puntero inicial teléfono: pos 3 (0961-222, el menor).
+        a) Siguiendo sig_cod desde pos 1: 3150 → 4070 → 5280 → 6390. Orden <strong>ascendente</strong>.<br><br>
+        b) Siguiendo sig_nom: Aguirre(4) → Morales(3) → Romero(1) → López(2). Orden <strong>descendente</strong>.<br><br>
+        c) Es <strong>circular</strong>: ningún sig_tel vale 0. Recorrido: pos 1 → 4 → 2 → 3 → 1, vuelve al inicio sin llegar a null.<br><br>
+        d) <strong>Punteros iniciales:</strong><br>
+        — Código: pos <strong>1</strong> (3150 es el menor)<br>
+        — Nombre: pos <strong>4</strong> (Aguirre es el mayor en orden descendente)<br>
+        — Teléfono: pos <strong>1</strong> (0981-111 es el menor; circular ASC empieza en el menor)
       </div>
     </div>
 
@@ -277,22 +274,16 @@ int pop() {
         La lista debe estar enlazada por:<br>
         — encadenamiento <strong>simple</strong> de Código en forma <strong>ascendente</strong><br>
         — encadenamiento <strong>simple</strong> de Producto en forma <strong>descendente</strong><br>
-        — encadenamiento <strong>simple circular</strong> de Precio en forma <strong>ascendente</strong><br><br>
-        <strong>Pasos:</strong> 1) Ordenar cada campo · 2) Agregar columnas de punteros · 3) Completar los punteros · 4) Indicar puntero inicial de cada cadena.
-        <p class="note">Tip: para cadena circular, el último nodo apunta al primero (no a 0).</p>
+        — encadenamiento <strong>simple circular</strong> de Precio en forma <strong>ascendente</strong>
       </div>
       <button class="answer-toggle" onclick="toggleAns(this)">Ver respuesta</button>
       <div class="answer-box">
-        <span class="paso-label">Orden ascendente Código</span><br>
-        P-047(3) → P-088(5) → P-105(1) → P-203(2) → P-310(4) → 0<br>
-        Puntero inicial Código: pos 3<br><br>
-        <span class="paso-label">Orden descendente Producto</span><br>
-        Webcam(5) → Teclado(2) → Mouse(3) → Monitor(1) → Auriculares(4) → 0<br>
-        Puntero inicial Producto: pos 5<br><br>
-        <span class="paso-label">Orden ascendente Precio (circular)</span><br>
-        85.000(3) → 120.000(2) → 175.000(5) → 200.000(4) → 850.000(1) → regresa a 3<br>
-        Puntero inicial Precio: pos 3<br><br>
-        <div class="tbl-wrap">
+        <div class="pi-row">
+          <span class="pi-chip">P.I. Código: pos 3</span>
+          <span class="pi-chip">P.I. Producto: pos 5</span>
+          <span class="pi-chip">P.I. Precio: pos 3</span>
+        </div>
+        <div class="tbl-wrap" style="margin-top:10px;">
           <table class="lista-tbl">
             <tr><th>Pos</th><th>Código</th><th>sig_cod</th><th>Producto</th><th>sig_prod</th><th>Precio</th><th>sig_prec</th></tr>
             <tr><td>1</td><td>P-105</td><td>2</td><td>Monitor</td><td>4</td><td>850.000</td><td>3</td></tr>
@@ -328,16 +319,12 @@ int pop() {
       </div>
       <button class="answer-toggle" onclick="toggleAns(this)">Ver respuesta</button>
       <div class="answer-box">
-        <span class="paso-label">Orden ascendente CI (doble)</span><br>
-        2.677.049(4) ↔ 3.194.760(2) ↔ 4.115.883(5) ↔ 4.820.315(1) ↔ 5.503.128(3)<br>
-        Puntero inicial CI: pos 4<br><br>
-        <span class="paso-label">Orden ascendente Apellido (simple)</span><br>
-        Acosta(5) → Benítez(4) → Núñez(3) → Ruiz(1) → Vera(2) → 0<br>
-        Puntero inicial Apellido: pos 5<br><br>
-        <span class="paso-label">Orden descendente Teléfono (circular)</span><br>
-        0991-447.560(3) → 0982-330.774(4) → 0981-224.001(1) → 0962-119.008(5) → 0961-885.320(2) → regresa a 3<br>
-        Puntero inicial Teléfono: pos 3<br><br>
-        <div class="tbl-wrap">
+        <div class="pi-row">
+          <span class="pi-chip">P.I. CI: pos 4</span>
+          <span class="pi-chip">P.I. Apellido: pos 5</span>
+          <span class="pi-chip">P.I. Teléfono: pos 3</span>
+        </div>
+        <div class="tbl-wrap" style="margin-top:10px;">
           <table class="lista-tbl">
             <tr><th>Pos</th><th>CI</th><th>sig_CI</th><th>ant_CI</th><th>Apellido</th><th>sig_ape</th><th>Teléfono</th><th>sig_tel</th></tr>
             <tr><td>1</td><td>4.820.315</td><td>3</td><td>5</td><td>Ruiz</td><td>2</td><td>0981-224.001</td><td>5</td></tr>
