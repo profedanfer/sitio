@@ -1,179 +1,41 @@
 
 <style>
   * { box-sizing: border-box; margin: 0; padding: 0; }
-  body { font-family: var(--font-sans); }
-  .header {
-    background: #2c2c2c;
-    color: #fff;
-    padding: 1rem 1.25rem;
-    border-radius: var(--border-radius-lg);
-    display: flex;
-    align-items: center;
-    gap: 14px;
-    margin-bottom: 1.5rem;
-  }
+  .header { background: #2c2c2c; color: #fff; padding: 1rem 1.25rem; border-radius: var(--border-radius-lg); display: flex; align-items: center; gap: 14px; margin-bottom: 1.5rem; }
   .header-text h1 { font-size: 17px; font-weight: 500; color: #fff; }
   .header-text p { font-size: 12px; color: #aaa; margin-top: 2px; }
-  .badge-inst {
-    font-size: 11px;
-    background: #E63012;
-    color: #fff;
-    padding: 3px 10px;
-    border-radius: 20px;
-    font-weight: 500;
-    white-space: nowrap;
-  }
-  .tabs {
-    display: flex;
-    gap: 6px;
-    margin-bottom: 1.25rem;
-    flex-wrap: wrap;
-  }
-  .tab-btn {
-    border: 0.5px solid var(--color-border-secondary);
-    background: var(--color-background-primary);
-    color: var(--color-text-secondary);
-    border-radius: 20px;
-    padding: 6px 14px;
-    font-size: 13px;
-    cursor: pointer;
-    transition: all 0.15s;
-    font-family: var(--font-sans);
-  }
+  .badge-inst { font-size: 11px; background: #E63012; color: #fff; padding: 3px 10px; border-radius: 20px; font-weight: 500; white-space: nowrap; }
+  .tabs { display: flex; gap: 6px; margin-bottom: 1.25rem; flex-wrap: wrap; }
+  .tab-btn { border: 0.5px solid var(--color-border-secondary); background: var(--color-background-primary); color: var(--color-text-secondary); border-radius: 20px; padding: 6px 14px; font-size: 13px; cursor: pointer; transition: all 0.15s; font-family: var(--font-sans); }
   .tab-btn:hover { background: var(--color-background-secondary); }
-  .tab-btn.active {
-    background: #2c2c2c;
-    color: #fff;
-    border-color: #2c2c2c;
-  }
+  .tab-btn.active { background: #2c2c2c; color: #fff; border-color: #2c2c2c; }
   .section { display: none; }
   .section.active { display: block; }
-  .ex-card {
-    border: 0.5px solid var(--color-border-tertiary);
-    border-radius: var(--border-radius-lg);
-    padding: 1rem 1.25rem;
-    margin-bottom: 1rem;
-    background: var(--color-background-primary);
-  }
-  .ex-num {
-    font-size: 11px;
-    font-weight: 500;
-    color: var(--color-text-secondary);
-    text-transform: uppercase;
-    letter-spacing: 0.04em;
-    margin-bottom: 6px;
-  }
-  .ex-title {
-    font-size: 15px;
-    font-weight: 500;
-    color: var(--color-text-primary);
-    margin-bottom: 8px;
-  }
-  .ex-body {
-    font-size: 14px;
-    color: var(--color-text-secondary);
-    line-height: 1.65;
-  }
-  .ex-body code {
-    font-family: var(--font-mono);
-    background: var(--color-background-tertiary);
-    border-radius: 4px;
-    padding: 1px 5px;
-    font-size: 13px;
-    color: var(--color-text-primary);
-  }
-  .ex-body pre {
-    font-family: var(--font-mono);
-    background: var(--color-background-tertiary);
-    border-radius: var(--border-radius-md);
-    padding: 10px 12px;
-    font-size: 12.5px;
-    margin-top: 8px;
-    overflow-x: auto;
-    line-height: 1.6;
-    color: var(--color-text-primary);
-  }
-  .tag {
-    display: inline-block;
-    font-size: 11px;
-    padding: 3px 9px;
-    border-radius: 12px;
-    font-weight: 500;
-    margin-right: 4px;
-    margin-bottom: 6px;
-  }
+  .ex-card { border: 0.5px solid var(--color-border-tertiary); border-radius: var(--border-radius-lg); padding: 1rem 1.25rem; margin-bottom: 1rem; background: var(--color-background-primary); }
+  .ex-num { font-size: 11px; font-weight: 500; color: var(--color-text-secondary); text-transform: uppercase; letter-spacing: 0.04em; margin-bottom: 6px; }
+  .ex-title { font-size: 15px; font-weight: 500; color: var(--color-text-primary); margin-bottom: 8px; }
+  .ex-body { font-size: 14px; color: var(--color-text-secondary); line-height: 1.7; }
+  .ex-body code { font-family: var(--font-mono); background: var(--color-background-tertiary); border-radius: 4px; padding: 1px 5px; font-size: 13px; color: var(--color-text-primary); }
+  .tag { display: inline-block; font-size: 11px; padding: 3px 9px; border-radius: 12px; font-weight: 500; margin-right: 4px; margin-bottom: 6px; }
   .tag-trace { background: #E1F5EE; color: #0F6E56; }
   .tag-code  { background: #E6F1FB; color: #185FA5; }
   .tag-ment  { background: #FAEEDA; color: #854F0B; }
   .tag-comp  { background: #FAECE7; color: #993C1D; }
   .tag-vis   { background: #EEEDFE; color: #534AB7; }
-  .answer-toggle {
-    background: none;
-    border: 0.5px solid var(--color-border-secondary);
-    border-radius: var(--border-radius-md);
-    padding: 6px 12px;
-    font-size: 13px;
-    cursor: pointer;
-    color: var(--color-text-secondary);
-    margin-top: 10px;
-    font-family: var(--font-sans);
-    transition: background 0.15s;
-  }
+  .answer-toggle { background: none; border: 0.5px solid var(--color-border-secondary); border-radius: var(--border-radius-md); padding: 6px 12px; font-size: 13px; cursor: pointer; color: var(--color-text-secondary); margin-top: 10px; font-family: var(--font-sans); transition: background 0.15s; }
   .answer-toggle:hover { background: var(--color-background-secondary); }
-  .answer-box {
-    display: none;
-    margin-top: 8px;
-    background: var(--color-background-secondary);
-    border-radius: var(--border-radius-md);
-    padding: 10px 12px;
-    font-size: 13px;
-    color: var(--color-text-primary);
-    line-height: 1.65;
-    border-left: 3px solid #1D9E75;
-  }
-  .answer-box pre {
-    font-family: var(--font-mono);
-    font-size: 12px;
-    background: var(--color-background-tertiary);
-    border-radius: 4px;
-    padding: 8px 10px;
-    margin-top: 6px;
-    overflow-x: auto;
-  }
-  .section-label {
-    font-size: 13px;
-    font-weight: 500;
-    color: var(--color-text-secondary);
-    margin-bottom: 12px;
-    display: flex;
-    align-items: center;
-    gap: 8px;
-  }
-  .section-label::after {
-    content: '';
-    flex: 1;
-    height: 0.5px;
-    background: var(--color-border-tertiary);
-  }
-  .progress-bar-wrap {
-    background: var(--color-background-secondary);
-    border-radius: 20px;
-    height: 6px;
-    margin-bottom: 1.25rem;
-    overflow: hidden;
-  }
-  .progress-bar-fill {
-    height: 100%;
-    border-radius: 20px;
-    background: #1D9E75;
-    transition: width 0.3s;
-  }
-  .progress-label {
-    font-size: 12px;
-    color: var(--color-text-secondary);
-    margin-bottom: 4px;
-    text-align: right;
-  }
+  .answer-box { display: none; margin-top: 8px; background: var(--color-background-secondary); border-radius: var(--border-radius-md); padding: 10px 12px; font-size: 13px; color: var(--color-text-primary); line-height: 1.7; border-left: 3px solid #1D9E75; }
+  .section-label { font-size: 13px; font-weight: 500; color: var(--color-text-secondary); margin-bottom: 12px; display: flex; align-items: center; gap: 8px; }
+  .section-label::after { content: ''; flex: 1; height: 0.5px; background: var(--color-border-tertiary); }
+  .tbl-wrap { overflow-x: auto; margin-top: 10px; }
+  table.lista-tbl { border-collapse: collapse; font-size: 12.5px; width: 100%; min-width: 480px; font-family: var(--font-mono); }
+  table.lista-tbl th { background: var(--color-background-secondary); color: var(--color-text-secondary); font-weight: 500; padding: 6px 10px; border: 0.5px solid var(--color-border-tertiary); text-align: center; font-family: var(--font-sans); font-size: 12px; }
+  table.lista-tbl td { padding: 5px 10px; border: 0.5px solid var(--color-border-tertiary); text-align: center; color: var(--color-text-primary); }
+  table.lista-tbl tr:nth-child(even) td { background: var(--color-background-secondary); }
+  .blank { display: inline-block; width: 28px; border-bottom: 1.5px solid var(--color-text-primary); text-align: center; }
+  .note { font-size: 12px; color: var(--color-text-secondary); margin-top: 8px; font-style: italic; }
+  .answer-box table.lista-tbl th { background: var(--color-background-tertiary); }
+  .paso-label { display: inline-block; font-size: 11px; background: #E6F1FB; color: #185FA5; border-radius: 10px; padding: 2px 8px; font-weight: 500; margin-bottom: 6px; }
 </style>
 
 <div style="padding: 0.25rem 0 1.5rem;">
@@ -187,23 +49,20 @@
   </div>
 
   <div class="tabs">
-    <button class="tab-btn active" onclick="showTab('arreglos')">📦 Arreglos</button>
-    <button class="tab-btn" onclick="showTab('pilas')">🥞 Pilas</button>
-    <button class="tab-btn" onclick="showTab('colas')">🚶 Colas</button>
-    <button class="tab-btn" onclick="showTab('listas')">🔗 Listas Enlazadas</button>
+    <button class="tab-btn active" onclick="showTab('arreglos', this)">Arreglos</button>
+    <button class="tab-btn" onclick="showTab('pilas', this)">Pilas</button>
+    <button class="tab-btn" onclick="showTab('colas', this)">Colas</button>
+    <button class="tab-btn" onclick="showTab('listas', this)">Listas Enlazadas</button>
   </div>
 
   <!-- ARREGLOS -->
   <div id="tab-arreglos" class="section active">
     <div class="section-label">Arreglos (Arrays) — unidimensionales y bidimensionales</div>
-
     <div class="ex-card">
-      <div class="ex-num">Ejercicio 1</div>
-      <span class="tag tag-trace">Traza</span>
+      <div class="ex-num">Ejercicio 1</div><span class="tag tag-trace">Traza</span>
       <div class="ex-title">¿Qué muestra este algoritmo?</div>
-      <div class="ex-body">
-        Seguí la ejecución paso a paso e indicá qué se imprime en cada iteración.
-        <pre>int[] notas = {7, 4, 9, 6, 3, 8};
+      <div class="ex-body">Seguí la ejecución paso a paso e indicá qué se imprime en cada iteración.
+        <pre style="font-family:var(--font-mono);background:var(--color-background-tertiary);border-radius:var(--border-radius-md);padding:10px 12px;font-size:12.5px;margin-top:8px;overflow-x:auto;line-height:1.6;color:var(--color-text-primary);">int[] notas = {7, 4, 9, 6, 3, 8};
 int suma = 0;
 for (int i = 0; i < notas.length; i++) {
     suma = suma + notas[i];
@@ -212,22 +71,14 @@ System.out.println("Suma: " + suma);
 System.out.println("Prom: " + (suma / notas.length));</pre>
       </div>
       <button class="answer-toggle" onclick="toggleAns(this)">Ver respuesta</button>
-      <div class="answer-box">
-        Suma: 37<br>
-        Prom: 6  <em>(división entera: 37/6 = 6, no 6.16)</em>
-      </div>
+      <div class="answer-box">Suma: 37<br>Prom: 6 &nbsp;<em>(división entera: 37/6 = 6)</em></div>
     </div>
-
     <div class="ex-card">
-      <div class="ex-num">Ejercicio 2</div>
-      <span class="tag tag-code">Codificar</span>
+      <div class="ex-num">Ejercicio 2</div><span class="tag tag-code">Codificar</span>
       <div class="ex-title">Buscar el máximo</div>
-      <div class="ex-body">
-        Dado el arreglo <code>int[] temps = {23, 31, 18, 35, 29, 12, 40}</code>, escribí un algoritmo que encuentre e imprima el valor más alto y la posición donde se encuentra.
-      </div>
+      <div class="ex-body">Dado el arreglo <code>int[] temps = {23, 31, 18, 35, 29, 12, 40}</code>, escribí un algoritmo que encuentre e imprima el valor más alto y la posición donde se encuentra.</div>
       <button class="answer-toggle" onclick="toggleAns(this)">Ver respuesta</button>
-      <div class="answer-box">
-        <pre>int max = temps[0];
+      <div class="answer-box"><pre style="font-family:var(--font-mono);font-size:12px;background:var(--color-background-tertiary);border-radius:4px;padding:8px 10px;margin-top:6px;overflow-x:auto;">int max = temps[0];
 int pos = 0;
 for (int i = 1; i < temps.length; i++) {
     if (temps[i] > max) {
@@ -236,17 +87,13 @@ for (int i = 1; i < temps.length; i++) {
     }
 }
 System.out.println("Max: " + max + " en posicion " + pos);</pre>
-        Salida: Max: 40 en posicion 6
-      </div>
+      Salida: Max: 40 en posicion 6</div>
     </div>
-
     <div class="ex-card">
-      <div class="ex-num">Ejercicio 3</div>
-      <span class="tag tag-ment">Completar</span>
+      <div class="ex-num">Ejercicio 3</div><span class="tag tag-ment">Completar</span>
       <div class="ex-title">Rellená los espacios en blanco</div>
-      <div class="ex-body">
-        El siguiente algoritmo invierte un arreglo. Completá las partes faltantes:
-        <pre>int[] arr = {1, 2, 3, 4, 5};
+      <div class="ex-body">El siguiente algoritmo invierte un arreglo. Completá las partes faltantes:
+        <pre style="font-family:var(--font-mono);background:var(--color-background-tertiary);border-radius:var(--border-radius-md);padding:10px 12px;font-size:12.5px;margin-top:8px;overflow-x:auto;line-height:1.6;color:var(--color-text-primary);">int[] arr = {1, 2, 3, 4, 5};
 int temp;
 for (int i = 0; i < ___/2; i++) {
     temp = arr[i];
@@ -255,95 +102,46 @@ for (int i = 0; i < ___/2; i++) {
 }</pre>
       </div>
       <button class="answer-toggle" onclick="toggleAns(this)">Ver respuesta</button>
-      <div class="answer-box">
-        Los blancos son: <code>arr.length</code> · <code>arr.length - 1 - i</code> · <code>arr.length - 1 - i</code>
-      </div>
+      <div class="answer-box">Los blancos son: <code>arr.length</code> · <code>arr.length - 1 - i</code> · <code>arr.length - 1 - i</code></div>
     </div>
-
     <div class="ex-card">
-      <div class="ex-num">Ejercicio 4</div>
-      <span class="tag tag-comp">Comparar</span>
+      <div class="ex-num">Ejercicio 4</div><span class="tag tag-comp">Comparar</span>
       <div class="ex-title">Array vs. Matriz</div>
-      <div class="ex-body">
-        Se tiene la siguiente matriz 3×3:
-        <pre>int[][] m = { {1,2,3}, {4,5,6}, {7,8,9} };</pre>
+      <div class="ex-body">Se tiene la siguiente matriz 3×3:
+        <pre style="font-family:var(--font-mono);background:var(--color-background-tertiary);border-radius:var(--border-radius-md);padding:10px 12px;font-size:12.5px;margin-top:8px;overflow-x:auto;line-height:1.6;color:var(--color-text-primary);">int[][] m = { {1,2,3}, {4,5,6}, {7,8,9} };</pre>
         a) Indicá el valor de <code>m[1][2]</code>.<br>
         b) Escribí el código para sumar la diagonal principal.<br>
         c) ¿Cuántos elementos tiene en total?
       </div>
       <button class="answer-toggle" onclick="toggleAns(this)">Ver respuesta</button>
-      <div class="answer-box">
-        a) <code>m[1][2]</code> = 6<br><br>
-        b)
-        <pre>int diag = 0;
+      <div class="answer-box">a) <code>m[1][2]</code> = 6<br><br>b)<pre style="font-family:var(--font-mono);font-size:12px;background:var(--color-background-tertiary);border-radius:4px;padding:8px 10px;margin-top:6px;overflow-x:auto;">int diag = 0;
 for (int i = 0; i < 3; i++) {
-    diag += m[i][i];  // 1 + 5 + 9
+    diag += m[i][i]; // 1+5+9
 }
-System.out.println(diag); // 15</pre>
-        c) 3 × 3 = 9 elementos
-      </div>
+System.out.println(diag); // 15</pre>c) 3 × 3 = 9 elementos</div>
     </div>
   </div>
 
   <!-- PILAS -->
   <div id="tab-pilas" class="section">
     <div class="section-label">Pilas (Stacks) — LIFO: último en entrar, primero en salir</div>
-
     <div class="ex-card">
-      <div class="ex-num">Ejercicio 1</div>
-      <span class="tag tag-vis">Visualizar</span>
+      <div class="ex-num">Ejercicio 1</div><span class="tag tag-vis">Visualizar</span>
       <div class="ex-title">Simulá operaciones sobre una pila</div>
-      <div class="ex-body">
-        Dibujá el estado de la pila después de cada operación. La pila inicia vacía.<br><br>
-        1. <code>push(10)</code><br>
-        2. <code>push(20)</code><br>
-        3. <code>push(30)</code><br>
-        4. <code>pop()</code><br>
-        5. <code>push(40)</code><br>
-        6. <code>pop()</code><br>
-        7. ¿Cuál es el <code>top</code> actual?
+      <div class="ex-body">Dibujá el estado de la pila después de cada operación. La pila inicia vacía.<br><br>
+        1. <code>push(10)</code><br>2. <code>push(20)</code><br>3. <code>push(30)</code><br>4. <code>pop()</code><br>5. <code>push(40)</code><br>6. <code>pop()</code><br>7. ¿Cuál es la <strong>cima</strong> actual?
       </div>
       <button class="answer-toggle" onclick="toggleAns(this)">Ver respuesta</button>
       <div class="answer-box">
-        Después de cada operación:<br>
-        1. [10]<br>
-        2. [10, 20]<br>
-        3. [10, 20, 30]<br>
-        4. pop devuelve 30 → [10, 20]<br>
-        5. [10, 20, 40]<br>
-        6. pop devuelve 40 → [10, 20]<br>
-        7. top = 20
+        1. [10]<br>2. [10, 20]<br>3. [10, 20, 30]<br>4. pop devuelve 30 → [10, 20]<br>5. [10, 20, 40]<br>6. pop devuelve 40 → [10, 20]<br>7. cima = 20
       </div>
     </div>
-
     <div class="ex-card">
-      <div class="ex-num">Ejercicio 2</div>
-      <span class="tag tag-trace">Traza</span>
-      <div class="ex-title">Verificar paréntesis balanceados</div>
-      <div class="ex-body">
-        Aplicando el algoritmo de pila para verificar paréntesis, indicá si cada expresión está <strong>balanceada</strong> o no. Justificá tu respuesta mostrando el contenido de la pila en cada paso.<br><br>
-        a) <code>( a + b ) * ( c - d )</code><br>
-        b) <code>( ( x + y ) * z</code><br>
-        c) <code>) a + b (</code>
-      </div>
-      <button class="answer-toggle" onclick="toggleAns(this)">Ver respuesta</button>
-      <div class="answer-box">
-        a) Balanceada. Se apilan y desapilan dos pares de paréntesis; pila vacía al final. ✅<br><br>
-        b) No balanceada. Al terminar queda un '(' en la pila sin cerrar. ❌<br><br>
-        c) No balanceada. Al encontrar ')' la pila está vacía → error inmediato. ❌
-      </div>
-    </div>
-
-    <div class="ex-card">
-      <div class="ex-num">Ejercicio 3</div>
-      <span class="tag tag-code">Codificar</span>
+      <div class="ex-num">Ejercicio 2</div><span class="tag tag-code">Codificar</span>
       <div class="ex-title">Implementar una pila con arreglo</div>
-      <div class="ex-body">
-        Usando un arreglo de enteros de tamaño 5, escribí los métodos <code>push(int x)</code> y <code>pop()</code>. Considerá los casos de pila llena y pila vacía.
-      </div>
+      <div class="ex-body">Usando un arreglo de enteros de tamaño 5, escribí los métodos <code>push(int x)</code> y <code>pop()</code>. Considerá los casos de pila llena y pila vacía.</div>
       <button class="answer-toggle" onclick="toggleAns(this)">Ver respuesta</button>
-      <div class="answer-box">
-        <pre>int[] pila = new int[5];
+      <div class="answer-box"><pre style="font-family:var(--font-mono);font-size:12px;background:var(--color-background-tertiary);border-radius:4px;padding:8px 10px;margin-top:6px;overflow-x:auto;">int[] pila = new int[5];
 int tope = -1;
 
 void push(int x) {
@@ -359,66 +157,37 @@ int pop() {
         return -1;
     }
     return pila[tope--];
-}</pre>
-      </div>
+}</pre></div>
     </div>
   </div>
 
   <!-- COLAS -->
   <div id="tab-colas" class="section">
     <div class="section-label">Colas (Queues) — FIFO: primero en entrar, primero en salir</div>
-
     <div class="ex-card">
-      <div class="ex-num">Ejercicio 1</div>
-      <span class="tag tag-vis">Visualizar</span>
+      <div class="ex-num">Ejercicio 1</div><span class="tag tag-vis">Visualizar</span>
       <div class="ex-title">Simulá operaciones sobre una cola</div>
-      <div class="ex-body">
-        Dibujá el estado de la cola después de cada operación. La cola inicia vacía.<br><br>
-        1. <code>enqueue("Ana")</code><br>
-        2. <code>enqueue("Luis")</code><br>
-        3. <code>enqueue("María")</code><br>
-        4. <code>dequeue()</code><br>
-        5. <code>enqueue("Pedro")</code><br>
-        6. <code>dequeue()</code><br>
-        7. ¿Quién es el <code>frente</code> actual?
+      <div class="ex-body">Dibujá el estado de la cola después de cada operación. La cola inicia vacía.<br><br>
+        1. <code>enqueue("Ana")</code><br>2. <code>enqueue("Luis")</code><br>3. <code>enqueue("María")</code><br>4. <code>dequeue()</code><br>5. <code>enqueue("Pedro")</code><br>6. <code>dequeue()</code><br>7. ¿Quién es el <strong>frente</strong> actual?
       </div>
       <button class="answer-toggle" onclick="toggleAns(this)">Ver respuesta</button>
-      <div class="answer-box">
-        1. [Ana]<br>
-        2. [Ana, Luis]<br>
-        3. [Ana, Luis, María]<br>
-        4. dequeue → devuelve "Ana" → [Luis, María]<br>
-        5. [Luis, María, Pedro]<br>
-        6. dequeue → devuelve "Luis" → [María, Pedro]<br>
-        7. frente = "María"
-      </div>
+      <div class="answer-box">1. [Ana]<br>2. [Ana, Luis]<br>3. [Ana, Luis, María]<br>4. dequeue → devuelve "Ana" → [Luis, María]<br>5. [Luis, María, Pedro]<br>6. dequeue → devuelve "Luis" → [María, Pedro]<br>7. frente = "María"</div>
     </div>
-
     <div class="ex-card">
-      <div class="ex-num">Ejercicio 2</div>
-      <span class="tag tag-comp">Comparar</span>
+      <div class="ex-num">Ejercicio 2</div><span class="tag tag-comp">Comparar</span>
       <div class="ex-title">Pila vs. Cola</div>
-      <div class="ex-body">
-        Se ingresan los valores <code>5, 10, 15, 20</code> a una pila y a una cola. Luego se realizan 4 extracciones de cada estructura.<br><br>
+      <div class="ex-body">Se ingresan los valores <code>5, 10, 15, 20</code> a una pila y a una cola. Luego se realizan 4 extracciones de cada estructura.<br><br>
         a) ¿En qué orden salen los elementos de la pila?<br>
         b) ¿En qué orden salen los elementos de la cola?<br>
         c) ¿En qué situación real usarías cada una?
       </div>
       <button class="answer-toggle" onclick="toggleAns(this)">Ver respuesta</button>
-      <div class="answer-box">
-        a) Pila (LIFO): 20, 15, 10, 5<br>
-        b) Cola (FIFO): 5, 10, 15, 20<br><br>
-        c) Pila: historial de acciones (Ctrl+Z), llamadas recursivas.<br>
-           Cola: turnos de atención, impresión de documentos, cola de procesos del SO.
-      </div>
+      <div class="answer-box">a) Pila (LIFO): 20, 15, 10, 5<br>b) Cola (FIFO): 5, 10, 15, 20<br><br>c) Pila: historial de acciones (Ctrl+Z), llamadas recursivas.<br>Cola: turnos de atención, impresión de documentos, cola de procesos del SO.</div>
     </div>
-
     <div class="ex-card">
-      <div class="ex-num">Ejercicio 3</div>
-      <span class="tag tag-code">Codificar</span>
+      <div class="ex-num">Ejercicio 3</div><span class="tag tag-code">Codificar</span>
       <div class="ex-title">Cola con arreglo circular</div>
-      <div class="ex-body">
-        Dada una cola implementada con arreglo de tamaño 4, con <code>frente=0</code> y <code>fin=0</code>:<br><br>
+      <div class="ex-body">Dada una cola implementada con arreglo de tamaño 4, con <code>frente=0</code> y <code>fin=0</code>:<br><br>
         a) Realizá: <code>enqueue(1)</code>, <code>enqueue(2)</code>, <code>enqueue(3)</code><br>
         b) Realizá: <code>dequeue()</code>, <code>dequeue()</code><br>
         c) Realizá: <code>enqueue(4)</code>, <code>enqueue(5)</code><br><br>
@@ -426,142 +195,170 @@ int pop() {
       </div>
       <button class="answer-toggle" onclick="toggleAns(this)">Ver respuesta</button>
       <div class="answer-box">
-        a) enqueue(1): arr[0]=1, fin=1 | enqueue(2): arr[1]=2, fin=2 | enqueue(3): arr[2]=3, fin=3<br>
-           frente=0, fin=3<br><br>
-        b) dequeue(): devuelve arr[0]=1, frente=1 | dequeue(): devuelve arr[1]=2, frente=2<br>
-           frente=2, fin=3<br><br>
-        c) Con arreglo circular: enqueue(4): arr[3]=4, fin=0 | enqueue(5): arr[0]=5, fin=1<br>
-           frente=2, fin=1
+        a) enqueue(1): arr[0]=1, fin=1 | enqueue(2): arr[1]=2, fin=2 | enqueue(3): arr[2]=3, fin=3 → frente=0, fin=3<br><br>
+        b) dequeue(): devuelve 1, frente=1 | dequeue(): devuelve 2, frente=2 → frente=2, fin=3<br><br>
+        c) enqueue(4): arr[3]=4, fin=0 | enqueue(5): arr[0]=5, fin=1 → frente=2, fin=1
       </div>
     </div>
   </div>
 
   <!-- LISTAS ENLAZADAS -->
   <div id="tab-listas" class="section">
-    <div class="section-label">Listas Enlazadas — nodos dinámicos con referencia al siguiente</div>
+    <div class="section-label">Listas Enlazadas — no secuenciales con múltiples encadenamientos</div>
 
     <div class="ex-card">
-      <div class="ex-num">Ejercicio 1</div>
-      <span class="tag tag-vis">Visualizar</span>
-      <div class="ex-title">Dibujar la lista resultante</div>
+      <div class="ex-num">Ejercicio 1</div><span class="tag tag-ment">Conceptual</span>
+      <div class="ex-title">Tipos de listas y sus características</div>
       <div class="ex-body">
-        Partiendo de una lista vacía, seguí las operaciones e indicá cómo queda la lista (con flechas entre nodos).<br><br>
-        1. Insertar <code>10</code> al inicio<br>
-        2. Insertar <code>20</code> al final<br>
-        3. Insertar <code>15</code> al inicio<br>
-        4. Insertar <code>25</code> al final<br>
-        5. Eliminar el nodo con valor <code>10</code><br><br>
-        ¿Cuántos nodos quedan? ¿Cuál es la cabeza?
+        Uní cada tipo de lista con su descripción correcta:<br><br>
+        <strong>Tipos:</strong> Contigua · Enlazada simple · Circular · Doblemente encadenada · Doblemente encadenada circular<br><br>
+        <strong>Descripciones:</strong><br>
+        a) Sus elementos ocupan posiciones de memoria adyacentes; se implementa con arreglos.<br>
+        b) El último nodo apunta al primer nodo de la lista.<br>
+        c) Cada nodo tiene dos punteros: <em>siguiente</em> y <em>anterior</em>.<br>
+        d) El puntero <em>anterior</em> del primer nodo apunta al último, y el <em>siguiente</em> del último apunta al primero.<br>
+        e) Cada nodo tiene un campo dato y un puntero al nodo sucesor; el último apunta a null.
       </div>
       <button class="answer-toggle" onclick="toggleAns(this)">Ver respuesta</button>
       <div class="answer-box">
-        Paso a paso:<br>
-        1. <code>[10] → null</code><br>
-        2. <code>[10] → [20] → null</code><br>
-        3. <code>[15] → [10] → [20] → null</code><br>
-        4. <code>[15] → [10] → [20] → [25] → null</code><br>
-        5. Eliminar 10 → <code>[15] → [20] → [25] → null</code><br><br>
-        Quedan 3 nodos. Cabeza = nodo con valor 15.
+        a) Contigua<br>
+        b) Circular<br>
+        c) Doblemente encadenada<br>
+        d) Doblemente encadenada circular<br>
+        e) Enlazada simple
       </div>
     </div>
 
     <div class="ex-card">
-      <div class="ex-num">Ejercicio 2</div>
-      <span class="tag tag-code">Codificar</span>
-      <div class="ex-title">Clase Nodo e inserción al inicio</div>
+      <div class="ex-num">Ejercicio 2</div><span class="tag tag-trace">Traza</span>
+      <div class="ex-title">Identificar el tipo de encadenamiento</div>
       <div class="ex-body">
-        Completá la clase <code>Nodo</code> y el método <code>insertarInicio</code> para una lista enlazada simple de enteros.
-        <pre>class Nodo {
-    int dato;
-    Nodo siguiente;
-    // completar constructor
-}
-
-class Lista {
-    Nodo cabeza = null;
-
-    void insertarInicio(int x) {
-        // completar
-    }
-}</pre>
+        Observá la siguiente tabla de una lista no secuencial con 4 registros y respondé:<br>
+        <div class="tbl-wrap">
+          <table class="lista-tbl">
+            <tr><th>Pos</th><th>Código</th><th>sig_cod</th><th>ant_cod</th><th>Nombre</th><th>sig_nom</th><th>Teléfono</th><th>sig_tel</th></tr>
+            <tr><td>1</td><td>3150</td><td>3</td><td>0</td><td>Romero</td><td>2</td><td>0981-111</td><td>4</td></tr>
+            <tr><td>2</td><td>5280</td><td>4</td><td>3</td><td>López</td><td>4</td><td>0991-333</td><td>3</td></tr>
+            <tr><td>3</td><td>4070</td><td>2</td><td>1</td><td>Morales</td><td>1</td><td>0961-222</td><td>1</td></tr>
+            <tr><td>4</td><td>6390</td><td>0</td><td>2</td><td>Aguirre</td><td>3</td><td>0992-444</td><td>2</td></tr>
+          </table>
+        </div>
+        <br>
+        a) ¿En qué orden quedan los códigos? ¿Es ascendente o descendente?<br>
+        b) ¿En qué orden quedan los nombres? ¿Es ascendente o descendente?<br>
+        c) ¿El encadenamiento de teléfono es simple o circular? ¿Cómo lo determinás?<br>
+        d) ¿Cuál es el puntero inicial para cada encadenamiento?
       </div>
       <button class="answer-toggle" onclick="toggleAns(this)">Ver respuesta</button>
       <div class="answer-box">
-        <pre>class Nodo {
-    int dato;
-    Nodo siguiente;
-    Nodo(int x) {
-        dato = x;
-        siguiente = null;
-    }
-}
-
-class Lista {
-    Nodo cabeza = null;
-
-    void insertarInicio(int x) {
-        Nodo nuevo = new Nodo(x);
-        nuevo.siguiente = cabeza;
-        cabeza = nuevo;
-    }
-}</pre>
+        a) Siguiendo sig_cod desde puntero inicial (pos 1): 3150 → 4070 → 5280 → 6390. Orden <strong>ascendente</strong>.<br><br>
+        b) Siguiendo sig_nom desde pos 4: Aguirre → Morales → Romero → López. Orden <strong>descendente</strong>. Puntero inicial: 4.<br><br>
+        c) Es <strong>circular</strong>: el último nodo (pos 2, tel 0991-333) apunta a pos 3 (no a 0/null), formando un ciclo: 1→4→2→3→1.<br><br>
+        d) Puntero inicial código: pos 1 | Puntero inicial nombre: pos 4 | Puntero inicial teléfono: pos 3 (0961-222, el menor).
       </div>
     </div>
 
     <div class="ex-card">
-      <div class="ex-num">Ejercicio 3</div>
-      <span class="tag tag-trace">Traza</span>
-      <div class="ex-title">Recorrido e impresión</div>
+      <div class="ex-num">Ejercicio 3</div><span class="tag tag-vis">Construir tabla</span>
+      <div class="ex-title">Crear una lista no secuencial</div>
       <div class="ex-body">
-        Dada la lista <code>cabeza → [5] → [8] → [2] → [11] → null</code>, trazá el siguiente algoritmo e indicá la salida:
-        <pre>Nodo actual = cabeza;
-int suma = 0;
-while (actual != null) {
-    if (actual.dato % 2 == 0)
-        suma += actual.dato;
-    actual = actual.siguiente;
-}
-System.out.println("Suma pares: " + suma);</pre>
+        Crear una lista no secuencial con los siguientes registros de productos:<br><br>
+        <div class="tbl-wrap">
+          <table class="lista-tbl">
+            <tr><th>Pos</th><th>Código</th><th>Producto</th><th>Precio</th></tr>
+            <tr><td>1</td><td>P-105</td><td>Monitor</td><td>850.000</td></tr>
+            <tr><td>2</td><td>P-203</td><td>Teclado</td><td>120.000</td></tr>
+            <tr><td>3</td><td>P-047</td><td>Mouse</td><td>85.000</td></tr>
+            <tr><td>4</td><td>P-310</td><td>Auriculares</td><td>200.000</td></tr>
+            <tr><td>5</td><td>P-088</td><td>Webcam</td><td>175.000</td></tr>
+          </table>
+        </div>
+        <br>
+        La lista debe estar enlazada por:<br>
+        — encadenamiento <strong>simple</strong> de Código en forma <strong>ascendente</strong><br>
+        — encadenamiento <strong>simple</strong> de Producto en forma <strong>descendente</strong><br>
+        — encadenamiento <strong>simple circular</strong> de Precio en forma <strong>ascendente</strong><br><br>
+        <strong>Pasos:</strong> 1) Ordenar cada campo · 2) Agregar columnas de punteros · 3) Completar los punteros · 4) Indicar puntero inicial de cada cadena.
+        <p class="note">Tip: para cadena circular, el último nodo apunta al primero (no a 0).</p>
       </div>
       <button class="answer-toggle" onclick="toggleAns(this)">Ver respuesta</button>
       <div class="answer-box">
-        Recorrido:<br>
-        5 → impar, no suma<br>
-        8 → par, suma = 8<br>
-        2 → par, suma = 10<br>
-        11 → impar, no suma<br><br>
-        Salida: <strong>Suma pares: 10</strong>
+        <span class="paso-label">Orden ascendente Código</span><br>
+        P-047(3) → P-088(5) → P-105(1) → P-203(2) → P-310(4) → 0<br>
+        Puntero inicial Código: pos 3<br><br>
+        <span class="paso-label">Orden descendente Producto</span><br>
+        Webcam(5) → Teclado(2) → Mouse(3) → Monitor(1) → Auriculares(4) → 0<br>
+        Puntero inicial Producto: pos 5<br><br>
+        <span class="paso-label">Orden ascendente Precio (circular)</span><br>
+        85.000(3) → 120.000(2) → 175.000(5) → 200.000(4) → 850.000(1) → regresa a 3<br>
+        Puntero inicial Precio: pos 3<br><br>
+        <div class="tbl-wrap">
+          <table class="lista-tbl">
+            <tr><th>Pos</th><th>Código</th><th>sig_cod</th><th>Producto</th><th>sig_prod</th><th>Precio</th><th>sig_prec</th></tr>
+            <tr><td>1</td><td>P-105</td><td>2</td><td>Monitor</td><td>4</td><td>850.000</td><td>3</td></tr>
+            <tr><td>2</td><td>P-203</td><td>4</td><td>Teclado</td><td>3</td><td>120.000</td><td>5</td></tr>
+            <tr><td>3</td><td>P-047</td><td>5</td><td>Mouse</td><td>1</td><td>85.000</td><td>2</td></tr>
+            <tr><td>4</td><td>P-310</td><td>0</td><td>Auriculares</td><td>0</td><td>200.000</td><td>1</td></tr>
+            <tr><td>5</td><td>P-088</td><td>1</td><td>Webcam</td><td>2</td><td>175.000</td><td>4</td></tr>
+          </table>
+        </div>
       </div>
     </div>
 
     <div class="ex-card">
-      <div class="ex-num">Ejercicio 4</div>
-      <span class="tag tag-comp">Comparar</span>
-      <div class="ex-title">Lista enlazada vs. Arreglo</div>
+      <div class="ex-num">Ejercicio 4</div><span class="tag tag-vis">Construir tabla</span>
+      <div class="ex-title">Lista con doble encadenamiento</div>
       <div class="ex-body">
-        Analizá las siguientes situaciones e indicá cuál estructura es más adecuada y por qué:<br><br>
-        a) Almacenar las notas de 30 alumnos cuya cantidad no cambia durante el año.<br>
-        b) Gestionar una lista de tareas donde se agregan y eliminan ítems constantemente.<br>
-        c) Acceder directamente al elemento en la posición 15 de una colección de 100 elementos.<br>
-        d) Insertar un elemento al inicio de una colección de 1000 elementos frecuentemente.
+        Crear una lista no secuencial con los siguientes registros de alumnos:<br><br>
+        <div class="tbl-wrap">
+          <table class="lista-tbl">
+            <tr><th>Pos</th><th>CI</th><th>Nombre</th><th>Apellido</th><th>Teléfono</th></tr>
+            <tr><td>1</td><td>4.820.315</td><td>Sofía</td><td>Ruiz</td><td>0981-224.001</td></tr>
+            <tr><td>2</td><td>3.194.760</td><td>Diego</td><td>Vera</td><td>0961-885.320</td></tr>
+            <tr><td>3</td><td>5.503.128</td><td>Camila</td><td>Núñez</td><td>0991-447.560</td></tr>
+            <tr><td>4</td><td>2.677.049</td><td>Lucas</td><td>Benítez</td><td>0982-330.774</td></tr>
+            <tr><td>5</td><td>4.115.883</td><td>Valentina</td><td>Acosta</td><td>0962-119.008</td></tr>
+          </table>
+        </div>
+        <br>
+        La lista debe estar enlazada por:<br>
+        — encadenamiento <strong>doble</strong> de CI en forma <strong>ascendente</strong><br>
+        — encadenamiento <strong>simple</strong> de Apellido en forma <strong>ascendente</strong><br>
+        — encadenamiento <strong>simple circular</strong> de Teléfono en forma <strong>descendente</strong>
       </div>
       <button class="answer-toggle" onclick="toggleAns(this)">Ver respuesta</button>
       <div class="answer-box">
-        a) <strong>Arreglo</strong> — tamaño fijo conocido, acceso directo eficiente.<br>
-        b) <strong>Lista enlazada</strong> — inserciones y eliminaciones O(1) al inicio/fin.<br>
-        c) <strong>Arreglo</strong> — acceso por índice O(1); lista necesita recorrer O(n).<br>
-        d) <strong>Lista enlazada</strong> — inserción al inicio O(1); en arreglo requiere desplazar 1000 elementos O(n).
+        <span class="paso-label">Orden ascendente CI (doble)</span><br>
+        2.677.049(4) ↔ 3.194.760(2) ↔ 4.115.883(5) ↔ 4.820.315(1) ↔ 5.503.128(3)<br>
+        Puntero inicial CI: pos 4<br><br>
+        <span class="paso-label">Orden ascendente Apellido (simple)</span><br>
+        Acosta(5) → Benítez(4) → Núñez(3) → Ruiz(1) → Vera(2) → 0<br>
+        Puntero inicial Apellido: pos 5<br><br>
+        <span class="paso-label">Orden descendente Teléfono (circular)</span><br>
+        0991-447.560(3) → 0982-330.774(4) → 0981-224.001(1) → 0962-119.008(5) → 0961-885.320(2) → regresa a 3<br>
+        Puntero inicial Teléfono: pos 3<br><br>
+        <div class="tbl-wrap">
+          <table class="lista-tbl">
+            <tr><th>Pos</th><th>CI</th><th>sig_CI</th><th>ant_CI</th><th>Apellido</th><th>sig_ape</th><th>Teléfono</th><th>sig_tel</th></tr>
+            <tr><td>1</td><td>4.820.315</td><td>3</td><td>5</td><td>Ruiz</td><td>2</td><td>0981-224.001</td><td>5</td></tr>
+            <tr><td>2</td><td>3.194.760</td><td>5</td><td>4</td><td>Vera</td><td>0</td><td>0961-885.320</td><td>3</td></tr>
+            <tr><td>3</td><td>5.503.128</td><td>0</td><td>1</td><td>Núñez</td><td>1</td><td>0991-447.560</td><td>4</td></tr>
+            <tr><td>4</td><td>2.677.049</td><td>2</td><td>0</td><td>Benítez</td><td>3</td><td>0982-330.774</td><td>1</td></tr>
+            <tr><td>5</td><td>4.115.883</td><td>1</td><td>2</td><td>Acosta</td><td>4</td><td>0962-119.008</td><td>2</td></tr>
+          </table>
+        </div>
       </div>
     </div>
+
   </div>
 </div>
 
 <script>
-function showTab(id) {
+function showTab(id, btn) {
   document.querySelectorAll('.section').forEach(s => s.classList.remove('active'));
   document.querySelectorAll('.tab-btn').forEach(b => b.classList.remove('active'));
   document.getElementById('tab-' + id).classList.add('active');
-  event.target.classList.add('active');
+  btn.classList.add('active');
 }
 function toggleAns(btn) {
   const box = btn.nextElementSibling;
